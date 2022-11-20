@@ -14,7 +14,8 @@ from_data_info_label_settings = reader("./settings/controls/from_data_info/label
 from_data_info_entry_settings = reader("./settings/controls/from_data_info/entry.cjson", **kk)
 
 net_session_config = reader("./settings/net/setting.json")
-login_config = reader("./settings/net/login.json")
+login_config_qr = reader("./settings/net/login_qr.json")
+login_config_sms = reader("./settings/net/login_sms.json")
 
 user_agent_format = reader("./settings/content/user_agent.json")
 form_data_format = reader("./settings/content/form_data.json")
