@@ -15,6 +15,12 @@ import time
 @application_thread
 @application_error
 def code_login(master) -> None:
+    showinfo("提示", "扫码登录已弃用, 短信登录在找人给我抓包(")
+
+
+@application_thread
+@application_error
+def __code_login(master) -> None:
     value = get_all_value(master, "Value_", [], True)
     if all([v for _, v in value.items()]):
         if askyesno("确认", "已存在登录数据是否继续") is False:
