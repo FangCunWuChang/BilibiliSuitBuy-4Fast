@@ -18,6 +18,8 @@
 
 修改[./http/source/](./http/source/) /xlive/revenue/v2/order/createOrder 改为 /x/garb/v2/trade/create
 
+修改[./application/module/command/login.py](./application/module/command/login.py) 把原先的code_login注释掉，把__code_login改成code_login
+
 ------------------------------------------------
 
 ------------------------------------------------
