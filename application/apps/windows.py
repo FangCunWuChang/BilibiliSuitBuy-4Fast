@@ -271,5 +271,5 @@ class QrcodeLoginWindow(TopWindow):
 
 class SmsLoginWindow(TopWindow):
     def __init__(self, master):
-        """ 扫码登陆 """
+        """ 短信登陆 """
         super(SmsLoginWindow, self).__init__("短信登陆", "500x500")
