@@ -24,9 +24,9 @@ class LoginSms(Session):
         self.headers.update({"User-Agent": user_agent})
         self.headers.update({"Buvid": str(self.buvid)})
 
-        self.login_host = login_config_qr["host"]
-        self.app_key = login_config_qr["appkey"]
-        self.cid = login_config_qr["cid"]
+        self.login_host = login_config_sms["host"]
+        self.app_key = login_config_sms["appkey"]
+        self.cid = login_config_sms["cid"]
 
     def SendSmsCode(self, tel_number: str):
         data = {"appkey": self.app_key, "cid": self.cid, "tel": tel_number}
@@ -36,7 +36,7 @@ class LoginSms(Session):
         form_data = form_data_text + f"&sign={sign}"
         url = f"https://{self.login_host}/x/passport-login/sms/send"
         response = self.request("POST", url, **{"data": form_data})
-        return response
+        return response.json()["data"]["captcha_key"]
 
     def Login(self, captcha_key: str, tel_number: str, code: str):
         data = {"appkey": self.app_key, "captcha_key": captcha_key, "cid": self.cid}
@@ -46,10 +46,11 @@ class LoginSms(Session):
         form_data = form_data_text + f"&sign={sign}"
         url = f"https://{self.login_host}/x/passport-login/login/sms"
         response = self.request("POST", url, **{"data": form_data})
-        return response
+        print(response.text)
+        return response.json()
 
     def Extract(self, response_json: dict) -> tuple[str, str]:
-        access_key = str(response_json["data"]["access_token"])
+        access_key = str(response_json["data"]["token_info"]["access_token"])
         cookie_list = response_json["data"]["cookie_info"]["cookies"]
         cookie_dict = {li["name"]: li["value"] for li in cookie_list}
         cookie_dict.update({"Buvid": str(self.buvid)})

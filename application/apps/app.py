@@ -1,8 +1,3 @@
-import tkinter
-from functools import partial
-
-from application.module.com import func_list
-
 from application.errors import GuiValueError
 
 from application.config import (
@@ -21,6 +16,10 @@ from application.net.utils import (
     get_versions, MobiAPP_ANDROID
 )
 
+from application.module.com import func_list
+
+from functools import partial
+import tkinter
 import os
 
 

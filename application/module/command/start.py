@@ -74,7 +74,7 @@ def start(master) -> None:
         "from": data_data["shopFrom"],
         "from_id": ""
     }, separators=(",", ":"))
-    
+
     pay_bp_number = int(get_pay_bp(entry_data["item_id"]))
     pay_bp = pay_bp_number * int(entry_data["buy_num"])
 
