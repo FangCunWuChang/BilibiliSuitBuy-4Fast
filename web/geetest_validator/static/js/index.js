@@ -1,7 +1,6 @@
 function getQueryValue(key) {
     const url_href = new URL(window.location.href);
-    const url = new URL(url_href);
-    return url.searchParams.get(key);
+    return url_href.searchParams.get(key);
 }
 
 window.onload = function() {
