@@ -74,6 +74,9 @@ def start(master) -> None:
         "from": data_data["shopFrom"],
         "from_id": ""
     }, separators=(",", ":"))
+    
+    pay_bp_number = int(get_pay_bp(entry_data["item_id"]))
+    pay_bp = pay_bp_number * int(entry_data["buy_num"])
 
     form_data_text = form_data_format["android"].format(
         ACCESS_KEY=value_data["accessKey"],
@@ -81,7 +84,7 @@ def start(master) -> None:
         ITEM_ID=entry_data["item_id"],
         CSRF=__cookie["bili_jct"],
         BUY_NUM=entry_data["buy_num"],
-        PAY_BP=get_pay_bp(entry_data["item_id"]),
+        PAY_BP=str(pay_bp),
         STATISTICS=quote(__statistics),
         TS=str(entry_data["start_time"])
     )
