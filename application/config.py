@@ -1,17 +1,14 @@
 from application.utils import reader
 
+label_settings = reader("./settings/controls/label.json")
+entry_settings = reader("./settings/controls/entry.json")
+button_settings = reader("./settings/controls/button.json")
 
-kk = {"key": hex(258727790135055252770750870592824059967)[2:], "crypto": True}
+device_info_label_settings = reader("./settings/controls/device_info/label.json")
+device_info_entry_settings = reader("./settings/controls/device_info/entry.json")
 
-label_settings = reader("./settings/controls/label.cjson", **kk)
-entry_settings = reader("./settings/controls/entry.cjson", **kk)
-button_settings = reader("./settings/controls/button.cjson", **kk)
-
-device_info_label_settings = reader("./settings/controls/device_info/label.cjson", **kk)
-device_info_entry_settings = reader("./settings/controls/device_info/entry.cjson", **kk)
-
-from_data_info_label_settings = reader("./settings/controls/from_data_info/label.cjson", **kk)
-from_data_info_entry_settings = reader("./settings/controls/from_data_info/entry.cjson", **kk)
+from_data_info_label_settings = reader("./settings/controls/from_data_info/label.json")
+from_data_info_entry_settings = reader("./settings/controls/from_data_info/entry.json")
 
 net_session_config = reader("./settings/net/setting.json")
 login_config_qr = reader("./settings/net/login_qr.json")
