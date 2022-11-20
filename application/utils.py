@@ -20,6 +20,7 @@ WriterMode_Content = "content"
 
 SIGN_TV: str = "59b43e04ad6965f34319062b478f83dd"
 SIGN_ANDROID: str = "560c52ccd288fed045859ed18bffd973"
+SIGN_ANDROID_LOGIN: str = "2653583c8873dea268ab9386918b1d65"
 
 
 def reader(path: str, mode=ReaderMode_Setting, **kwargs) -> list | dict | bytes:
