@@ -59,9 +59,21 @@
       "y": 110
     }
   },
-  "code_login": {
+  "__code_login": {
     "self": {
       "text": "扫码登录",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 150,
+      "height": 30,
+      "x": 640,
+      "y": 160
+    }
+  },
+  "code_login": {
+    "self": {
+      "text": "短信登录",
       "font": ["Microsoft YaHei", 14]
     },
     "place": {
