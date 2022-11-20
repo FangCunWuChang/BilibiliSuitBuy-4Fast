@@ -1,35 +1,83 @@
 from urllib.parse import urlencode
 import time
 
-from application.utils import buildSign, SIGN_TV
+from application.utils import buildSign, SIGN_TV, SIGN_ANDROID_LOGIN
 
 from application.net.session import Session
 from application.net.utils import get_versions, MobiAPP_TV
 
-from application.config import user_agent_format, login_config
+from application.config import user_agent_format, login_config_qr, login_config_sms
+
+
+class LoginSms(Session):
+    def __init__(self, version: tuple, androidmodel: str, androidbuild: str, buvid: str):
+        super(LoginSms, self).__init__()
+        (self.code, self.name), self.buvid = version, buvid
+
+        user_agent = user_agent_format["android_login"].format(
+            VERSION_NAME=self.name, ANDROID_MODEL=androidmodel,
+            VERSION_CODE=self.code, CHANNEL=login_config_sms["channel"],
+            ANDROID_BUILD=androidbuild
+        )
+
+        self.headers.update(login_config_sms["headers"])
+        self.headers.update({"User-Agent": user_agent})
+        self.headers.update({"Buvid": str(self.buvid)})
+
+        self.login_host = login_config_qr["host"]
+        self.app_key = login_config_qr["appkey"]
+        self.cid = login_config_qr["cid"]
+
+    def SendSmsCode(self, tel_number: str):
+        data = {"appkey": self.app_key, "cid": self.cid, "tel": tel_number}
+        data.update({"ts": str(round(time.time()))})
+        form_data_text = urlencode(data)
+        sign = buildSign(form_data_text, SIGN_ANDROID_LOGIN)
+        form_data = form_data_text + f"&sign={sign}"
+        url = f"https://{self.login_host}/x/passport-login/sms/send"
+        response = self.request("POST", url, **{"data": form_data})
+        return response
+
+    def Login(self, captcha_key: str, tel_number: str, code: str):
+        data = {"appkey": self.app_key, "captcha_key": captcha_key, "cid": self.cid}
+        data.update({"code": code, "tel": tel_number, "ts": str(round(time.time()))})
+        form_data_text = urlencode(data)
+        sign = buildSign(form_data_text, SIGN_ANDROID_LOGIN)
+        form_data = form_data_text + f"&sign={sign}"
+        url = f"https://{self.login_host}/x/passport-login/login/sms"
+        response = self.request("POST", url, **{"data": form_data})
+        return response
+
+    def Extract(self, response_json: dict) -> tuple[str, str]:
+        access_key = str(response_json["data"]["access_token"])
+        cookie_list = response_json["data"]["cookie_info"]["cookies"]
+        cookie_dict = {li["name"]: li["value"] for li in cookie_list}
+        cookie_dict.update({"Buvid": str(self.buvid)})
+        cookie_list = [f"{k}={v}" for k, v in cookie_dict.items()]
+        return access_key, "; ".join(cookie_list)
 
 
 class LoginQrcode(Session):
     def __init__(self, androidmodel: str, androidbuild: str, buvid: str):
         super(LoginQrcode, self).__init__()
 
-        if login_config["version"] == "auto":
+        if login_config_qr["version"] == "auto":
             self.build, version = get_versions(MobiAPP_TV)
         else:
-            self.build, version = tuple(login_config["version"])
+            self.build, version = tuple(login_config_qr["version"])
 
         user_agent = user_agent_format["tv"].format(
-            TV_CODE=self.build, CHANNEL=login_config["channel"],
+            TV_CODE=self.build, CHANNEL=login_config_qr["channel"],
             TV_NAME=version, ANDROID_MODEL=androidmodel,
             ANDROID_BUILD=androidbuild
         )
 
-        self.short_url = login_config["short_url"]
-        self.login_host = login_config["host"]
-        self.app_key = login_config["appkey"]
+        self.short_url = login_config_qr["short_url"]
+        self.login_host = login_config_qr["host"]
+        self.app_key = login_config_qr["appkey"]
         self.buvid = buvid
 
-        self.headers.update(login_config["headers"])
+        self.headers.update(login_config_qr["headers"])
         self.headers.update({"User-Agent": user_agent})
         self.headers.update({"Buvid": str(self.buvid)})
 
