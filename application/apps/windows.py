@@ -9,7 +9,7 @@ from application.errors import GuiValueError
 from application.module.decoration import application_error
 
 from application.net.utils import search_suit, search_coupon
-from application.net.login import LoginQrcode
+from application.net.login import LoginQrcode, LoginSms
 
 from application.utils import (
     parse_cookies, get_all_value, writer
@@ -160,21 +160,6 @@ class CouponListWindow(TopWindow):
             showwarning("警告", "选择失败")
 
 
-class QrcodeLoginWindow(TopWindow):
-    def __init__(self, master):
-        """ 扫码登陆 """
-        super(QrcodeLoginWindow, self).__init__("扫码登陆", "370x370")
-
-        device_dict = get_all_value(master, "Device_", [])
-        device_dict = {k.lower(): v for k, v in device_dict.items()}
-        self.login = LoginQrcode(**device_dict)
-
-        login_url, self.auth_code = self.login.GetUrlAndAuthCode()
-        image = qrcode.make(login_url).get_image()
-        self._photo = ImageTk.PhotoImage(image)
-        tkinter.Label(self, image=self._photo).pack()
-
-
 class DeviceInfoWindow(TopWindow):
     def __init__(self, master):
         """ 设备信息 """
@@ -267,3 +252,24 @@ class StartWindow(tkinter.Toplevel):
         start_text = f"{http_start_file} {file}"
         subprocess.Popen(start_text, **kw)
         showinfo("提示", "已尝试启动")
+
+
+class QrcodeLoginWindow(TopWindow):
+    def __init__(self, master):
+        """ 扫码登陆 """
+        super(QrcodeLoginWindow, self).__init__("扫码登陆", "370x370")
+
+        device_dict = get_all_value(master, "Device_", [])
+        device_dict = {k.lower(): v for k, v in device_dict.items()}
+        self.login = LoginQrcode(**device_dict)
+
+        login_url, self.auth_code = self.login.GetUrlAndAuthCode()
+        image = qrcode.make(login_url).get_image()
+        self._photo = ImageTk.PhotoImage(image)
+        tkinter.Label(self, image=self._photo).pack()
+
+
+class SmsLoginWindow(TopWindow):
+    def __init__(self, master):
+        """ 扫码登陆 """
+        super(SmsLoginWindow, self).__init__("短信登陆", "500x500")
