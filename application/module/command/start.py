@@ -63,6 +63,9 @@ def start(master) -> None:
     __eid = build_x_bili_aurora_eid(__cookie["DedeUserID"])
     __trace_id = build_x_bili_trace_id(entry_data["start_time"])
 
+    # 新版本
+    # ./setting/content/form_data.json 短一点的，中间那个，键改名为android启用
+    # ./setting/content/buy_setting.json 键host的值改为api.live.bilibili.com启用
     biz_extra = json.dumps({
         "add_month": int(data_data["addMonth"]),
         "coupon_token": entry_data["coupon"],
@@ -82,6 +85,24 @@ def start(master) -> None:
         STATISTICS=quote(__statistics),
         TS=str(entry_data["start_time"])
     )
+    # ---------------------------------------------------------
+
+    # 旧版本支持
+    # ./setting/content/form_data.json 长一点的，最上面那个，键改名为android启用
+    # ./setting/content/buy_setting.json 键host的值改为api.bilibili.com启用
+    # form_data_text = form_data_format["android"].format(
+    #     ACCESS_KEY=value_data["accessKey"],
+    #     ADD_MONTH=data_data["addMonth"],
+    #     BUY_NUM=entry_data["buy_num"],
+    #     COUPON_TOKEN=entry_data["coupon"],
+    #     CSRF=__cookie["bili_jct"],
+    #     F_SOURCE=data_data["fSource"],
+    #     SHOP_FROM=data_data["shopFrom"],
+    #     ITEM_ID=entry_data["item_id"],
+    #     STATISTICS=quote(__statistics),
+    #     TS=str(entry_data["start_time"])
+    # )
+    # ---------------------------------------------------------
 
     user_agent = user_agent_format["android"].format(
         ANDROID_BUILD=device_data["AndroidModel"],
