@@ -16,7 +16,7 @@
 
 修改[./application/module/command/start.py](./application/module/command/start.py)注释部分代码
 
-修改[./http/source/*/*_socket_*.*](./http/source/) /xlive/revenue/v2/order/createOrder 改为 /x/garb/v2/trade/create
+修改[./http/source/](./http/source/) /xlive/revenue/v2/order/createOrder 改为 /x/garb/v2/trade/create
 
 ------------------------------------------------
 
