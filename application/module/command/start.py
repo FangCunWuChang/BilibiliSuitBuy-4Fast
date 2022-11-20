@@ -16,7 +16,7 @@ from application.config import (
     form_data_format, user_agent_format, buy_setting
 )
 
-from application.apps.windows import StartWindow
+from application.apps.windows.start import StartWindow
 from application.net.utils import get_sale_time, get_pay_bp
 
 from urllib.parse import quote

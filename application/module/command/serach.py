@@ -3,7 +3,7 @@ from application.module.decoration import (
 )
 
 
-from application.apps.windows import (
+from application.apps.windows.serach import (
     ItemsListWindow,
     CouponListWindow
 )

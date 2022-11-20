@@ -5,7 +5,7 @@ from application.module.decoration import (
 from application.utils import get_all_value, parse_cookies
 from application.net.utils import login_verify
 
-from application.apps.windows import QrcodeLoginWindow
+from application.apps.windows.login import QrcodeLoginWindow
 
 from application.message import askyesno, showwarning, showinfo
 

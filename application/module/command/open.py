@@ -14,7 +14,7 @@ import re
 @application_thread
 @application_error
 def open_login(master) -> None:
-    file_path = askopenfilename("导入登录标识", [("json", "*.json")], "login.json")
+    file_path = askopenfilename("导入登录标识", [("json", "*.json")], "login_qr.json")
     login_content = reader(file_path)
     master["Value_cookie"] = login_content["cookie"]
     master["Value_accessKey"] = login_content["accessKey"]
