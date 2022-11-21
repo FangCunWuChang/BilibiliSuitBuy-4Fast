@@ -60,6 +60,7 @@ func H1ReceiveResponse(client *tls.Conn, BufLen int64) []byte {
 }
 
 func main() {
+	fmt.Printf("%v\n", "http1_socket_golang")
 	var filePath = GetSettingFilePath()
 	var headers, startTime, delayTime, formData = ReaderSetting(filePath)
 	var SleepTimeNumber = (float64(delayTime) / 1000) * float64(time.Second)

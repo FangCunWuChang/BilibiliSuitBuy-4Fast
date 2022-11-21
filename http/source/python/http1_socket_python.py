@@ -2,7 +2,6 @@ from timer import BiliTimer
 from tools import Tool
 import socket
 import time
-import sys
 import ssl
 
 
@@ -66,6 +65,7 @@ class SuitBuy(SuitValue):
 
 
 def main():
+    print("http1_socket_python")
     suit_buy = SuitBuy()
 
     bili_timer = BiliTimer(suit_buy.start_time, suit_buy.delay_time)

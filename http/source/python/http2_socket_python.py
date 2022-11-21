@@ -5,7 +5,6 @@ import h2.events
 import socket
 import time
 import ssl
-import sys
 
 
 class SuitValue(Tool):
@@ -90,6 +89,7 @@ class SuitBuy(SuitValue):
 
 
 def main():
+    print("http2_socket_python")
     suit_buy = SuitBuy()
 
     bili_timer = BiliTimer(suit_buy.start_time, suit_buy.delay_time)

@@ -93,6 +93,7 @@ func CloseH2(client *tls.Conn, th2 *GH2.H2Connection) {
 }
 
 func main() {
+	fmt.Printf("%v\n", "http2_socket_golang")
 	var filePath = GetSettingFilePath()
 	var headers, startTime, delayTime, formData = ReaderSetting(filePath)
 	var SleepTimeNumber = (float64(delayTime) / 1000) * float64(time.Second)
