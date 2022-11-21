@@ -46,13 +46,18 @@ def start(master) -> None:
     if start_time == -1:
         master["start_time_entry"].writer(str(round(time.time()) + 60))
 
+    suit_sale_time = get_sale_time(entry_data["item_id"])
     if not start_time:
-        start_time = get_sale_time(entry_data["item_id"])
-        master["start_time_entry"].writer(str(start_time))
+        master["start_time_entry"].writer(str(suit_sale_time))
 
     start_time = master["start_time_entry"].number(False)
+
     if time.time() >= start_time:
         if not askyesno("确认", "启动时间小于当前时间, 是否继续"):
+            return
+
+    if start_time < suit_sale_time:
+        if not askyesno("确认", "启动时间小于装扮开售时间, 是否继续"):
             return
 
     entry_data.update({"start_time": start_time})
@@ -64,7 +69,6 @@ def start(master) -> None:
     __trace_id = build_x_bili_trace_id(entry_data["start_time"])
 
     # 新版本
-    # ./setting/content/form_data.json 短一点的，中间那个，键改名为android启用
     # ./setting/content/buy_setting.json 键host的值改为api.live.bilibili.com启用
     biz_extra = json.dumps({
         "add_month": int(data_data["addMonth"]),
@@ -78,7 +82,7 @@ def start(master) -> None:
     pay_bp_number = int(get_pay_bp(entry_data["item_id"]))
     pay_bp = pay_bp_number * int(entry_data["buy_num"])
 
-    form_data_text = form_data_format["android"].format(
+    form_data_text = form_data_format["android_new"].format(
         ACCESS_KEY=value_data["accessKey"],
         BIZ_EXTRA=quote(biz_extra),
         ITEM_ID=entry_data["item_id"],
@@ -91,9 +95,8 @@ def start(master) -> None:
     # ---------------------------------------------------------
 
     # 旧版本支持
-    # ./setting/content/form_data.json 长一点的，最上面那个，键改名为android启用
     # ./setting/content/buy_setting.json 键host的值改为api.bilibili.com启用
-    # form_data_text = form_data_format["android"].format(
+    # form_data_text = form_data_format["android_old"].format(
     #     ACCESS_KEY=value_data["accessKey"],
     #     ADD_MONTH=data_data["addMonth"],
     #     BUY_NUM=entry_data["buy_num"],

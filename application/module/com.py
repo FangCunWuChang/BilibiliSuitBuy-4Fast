@@ -7,7 +7,7 @@ from application.module.command.info import (
 )
 
 from application.module.command.login import (
-    code_login, verify_login
+    sms_code_login, verify_login
 )
 
 from application.module.command.save import (
@@ -26,7 +26,7 @@ func_list = [
     (item_id_search, "item_id_search"),
     (coupon_search, "coupon_search"),
     (device_info, "device_info"),
-    (code_login, "code_login"),
+    (sms_code_login, "code_login"),
     (verify_login, "verify_login"),
     (save_login, "save_login"),
     (open_login, "open_login"),

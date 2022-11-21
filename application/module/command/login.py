@@ -18,7 +18,7 @@ import time
 
 @application_thread
 @application_error
-def code_login(master) -> None:
+def sms_code_login(master) -> None:
     value = get_all_value(master, "Value_", [], True)
     if all([v for _, v in value.items()]):
         if askyesno("确认", "已存在登录数据是否继续") is False:
@@ -60,7 +60,7 @@ def code_login(master) -> None:
 
 @application_thread
 @application_error
-def __code_login(master) -> None:
+def qr_code_login(master) -> None:
     value = get_all_value(master, "Value_", [], True)
     if all([v for _, v in value.items()]):
         if askyesno("确认", "已存在登录数据是否继续") is False:
