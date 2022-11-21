@@ -19,11 +19,6 @@ class SuitValue(Tool):
         self.start_time = int(start_time)
         self.delay_time = int(delay_time)
 
-        if self.start_time <= time.time():
-            code = input("启动时间小于当前时间 是否继续[y/n]:")
-            if code != "y":
-                sys.exit(f"exit")
-
         self.h2connection = self.BuildFrames(headers, form_data)
         __message = self.h2connection.data_to_send()
         self.message_header = __message[:-1]
@@ -96,10 +91,6 @@ class SuitBuy(SuitValue):
 
 def main():
     suit_buy = SuitBuy()
-
-    ver = input("准备就绪, 输入[run]以继续:")
-    if ver != "run":
-        sys.exit("!run")
 
     bili_timer = BiliTimer(suit_buy.start_time, suit_buy.delay_time)
     bili_timer.WaitLocalTime(3)

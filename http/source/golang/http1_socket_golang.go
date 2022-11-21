@@ -64,20 +64,6 @@ func main() {
 	var filePath = GetSettingFilePath()
 	var headers, startTime, delayTime, formData = ReaderSetting(filePath)
 	var SleepTimeNumber = (float64(delayTime) / 1000) * float64(time.Second)
-	if startTime <= time.Now().Unix() {
-		var code string
-		fmt.Printf("启动时间小于当前时间, 是否继续[y/n]:")
-		_, _ = fmt.Scan(&code)
-		if code != "y" {
-			os.Exit(1)
-		}
-	}
-	fmt.Printf("准备就绪, 输入[run]以继续:")
-	var WaiteEnter string
-	_, _ = fmt.Scan(&WaiteEnter)
-	if WaiteEnter != "run" {
-		os.Exit(1)
-	}
 
 	var MessageHeader, MessageBody = BuildMessage(headers, formData)
 
