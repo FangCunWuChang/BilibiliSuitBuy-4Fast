@@ -5,6 +5,7 @@ from application.errors import (
 )
 
 from Crypto.Util.Padding import unpad, pad
+from urllib.parse import urlsplit
 from Crypto.Cipher import AES
 import hashlib
 import base64
@@ -138,3 +139,13 @@ def get_sdk_int(build: str, sdk_int_file_path: str = None) -> str:
         sdk_int = data[li]["value"]
         data = data[li]
     return str(sdk_int)
+
+
+def urlQuerySplit(url: str) -> dict:
+    """ 分割url query参数 """
+    data: list[str] = urlsplit(url).query.split("&")
+    query_dict = dict()
+    for li in data:
+        i = li.split("=")
+        query_dict[i[0]] = "" if len(i) == 1 else i[1]
+    return query_dict
