@@ -8,19 +8,17 @@
 
 扫码登陆->短信登陆
 
+我不到啊
+
 ------------------------------------------------
 
 退回旧版本
 
 修改[./settings/content/buy_setting.json](./settings/content/buy_setting.json)里的host
 
-修改[./settings/content/form_data.json](./settings/content/form_data.json)修改android_old为android
-
 修改[./application/module/command/start.py](./application/module/command/start.py)注释部分代码
 
 修改[./http/source/](./http/source/) /xlive/revenue/v2/order/createOrder 改为 /x/garb/v2/trade/create
-
-修改[./application/module/command/login.py](./application/module/command/login.py) 把原先的code_login注释掉，把__code_login改成code_login
 
 ------------------------------------------------
 
