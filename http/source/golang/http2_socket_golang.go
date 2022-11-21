@@ -95,7 +95,7 @@ func CloseH2(client *tls.Conn, th2 *GH2.H2Connection) {
 func main() {
 	var filePath = GetSettingFilePath()
 	var headers, startTime, delayTime, formData = ReaderSetting(filePath)
-	var SleepTimeNumber = float64(delayTime) * float64(time.Second)
+	var SleepTimeNumber = (float64(delayTime) / 1000) * float64(time.Second)
 
 	var h2connection = BuildFrames(headers, formData)
 	var __message = h2connection.DataToSend()
@@ -119,6 +119,6 @@ func main() {
 	CloseH2(client, h2connection)
 	_ = client.Close()
 
-	fmt.Printf("%v\n", string(res))
+	fmt.Printf("\n%v\n", string(res))
 	fmt.Printf("耗时%vms\n", e-s)
 }

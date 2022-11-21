@@ -84,6 +84,6 @@ func main() {
 
 	_ = client.Close()
 
-	fmt.Printf("%v\n", string(res))
+	fmt.Printf("\n%v\n", string(res))
 	fmt.Printf("耗时%vms\n", e-s)
 }
