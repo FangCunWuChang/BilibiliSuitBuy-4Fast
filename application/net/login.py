@@ -37,7 +37,7 @@ class LoginSms(Session):
         form_data = form_data_text + f"&sign={sign}"
         url = f"https://{self.login_host}/x/passport-login/sms/send"
         response = self.request("POST", url, **{"data": form_data})
-        return response.json()["data"]
+        return response.json()
 
     def Login(self, captcha_key: str, tel_number: str, code: str):
         data = {"appkey": self.app_key, "captcha_key": captcha_key, "cid": self.cid}

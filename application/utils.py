@@ -6,6 +6,7 @@ from application.errors import (
 
 from Crypto.Util.Padding import unpad, pad
 from urllib.parse import urlsplit
+from urllib.parse import unquote
 from Crypto.Cipher import AES
 import hashlib
 import base64
@@ -147,5 +148,5 @@ def urlQuerySplit(url: str) -> dict:
     query_dict = dict()
     for li in data:
         i = li.split("=")
-        query_dict[i[0]] = "" if len(i) == 1 else i[1]
+        query_dict[i[0]] = "" if len(i) == 1 else unquote(i[1])
     return query_dict
