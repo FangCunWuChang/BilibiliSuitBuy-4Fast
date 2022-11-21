@@ -47,3 +47,10 @@ class SdkIntIndexError(Exception):
         """ [错误]无法找到对应的SdkInt"""
         super(SdkIntIndexError, self).__init__(*args)
         self.title = "[错误]无法找到对应的SdkInt"
+
+
+class ResponseError(Exception):
+    def __init__(self, *args: object):
+        """ [错误]响应错误 """
+        super(ResponseError, self).__init__(*args)
+        self.title = "[错误]响应错误"

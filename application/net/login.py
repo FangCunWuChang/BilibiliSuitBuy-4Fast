@@ -26,24 +26,21 @@ class LoginSms(Session):
 
         self.login_host = login_config_sms["host"]
         self.app_key = login_config_sms["appkey"]
-        self.cid = login_config_sms["cid"]
 
-    def SendSmsCode(self, tel_number: str, **kwargs):
-        data = {"appkey": self.app_key, "cid": self.cid}
+    def SendSmsCode(self, tel_number: str, cid: str, **kwargs):
+        data = {"appkey": self.app_key, "cid": cid}
         data.update(kwargs if kwargs else dict())
         data.update({"tel": tel_number})
         data.update({"ts": str(round(time.time()))})
         form_data_text = urlencode(data)
         sign = buildSign(form_data_text, SIGN_ANDROID_LOGIN)
         form_data = form_data_text + f"&sign={sign}"
-        # print(form_data)
         url = f"https://{self.login_host}/x/passport-login/sms/send"
         response = self.request("POST", url, **{"data": form_data})
-        # print(response.text)
         return response.json()
 
-    def Login(self, captcha_key: str, tel_number: str, code: str):
-        data = {"appkey": self.app_key, "captcha_key": captcha_key, "cid": self.cid}
+    def Login(self, captcha_key: str, tel_number: str, cid: str, code: str):
+        data = {"appkey": self.app_key, "captcha_key": captcha_key, "cid": cid}
         data.update({"code": code, "tel": tel_number, "ts": str(round(time.time()))})
         form_data_text = urlencode(data)
         sign = buildSign(form_data_text, SIGN_ANDROID_LOGIN)
