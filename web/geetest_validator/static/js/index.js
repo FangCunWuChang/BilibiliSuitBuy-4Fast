@@ -1,6 +1,7 @@
 function getQueryValue(key) {
     const url_href = new URL(window.location.href);
-    return url_href.searchParams.get(key);
+    const url = new URL(url_href);
+    return url.searchParams.get(key);
 }
 
 window.onload = function() {
@@ -18,10 +19,8 @@ window.onload = function() {
         var interval = setInterval(function(){
             var result = captchaObj.getValidate();
             if (result) {
-                var validate = $('#validate')[0];
-                var seccode = $('#seccode')[0];
-                validate.value = result.geetest_validate;
-                seccode.value = result.geetest_seccode;
+                var data = btoa(JSON.stringify(result))
+                location.href = "/finish?" + "data=" + data
                 clearInterval(interval)
             }
         }, 2000)
