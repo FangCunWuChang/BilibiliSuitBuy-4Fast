@@ -115,7 +115,7 @@ class SmsLoginWindow(TopWindow):
                 "gee_validate": gee_verify_dict["geetest_validate"],
                 "recaptcha_token": query_dict["recaptcha_token"],
             }
-            res_data = self.login.SendSmsCode(tel_number, **gee_form_data)
+            res_data = self.login.SendSmsCode(tel_number, cid, **gee_form_data)
         showinfo("提示", "验证码已发送")
         self.captcha_key = res_data["data"]["captcha_key"]
 
