@@ -5,7 +5,6 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/lllk140/gh2/GH2"
-	"os"
 	"time"
 )
 
