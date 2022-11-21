@@ -20,7 +20,7 @@ window.onload = function() {
             var result = captchaObj.getValidate();
             if (result) {
                 var data = btoa(JSON.stringify(result))
-                location.href = "/finish?" + "data=" + data
+                location.href = "./finish.html?" + "data=" + escape(data)
                 clearInterval(interval)
             }
         }, 2000)
