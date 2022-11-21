@@ -29,14 +29,17 @@ class LoginSms(Session):
         self.cid = login_config_sms["cid"]
 
     def SendSmsCode(self, tel_number: str, **kwargs):
-        data = {"appkey": self.app_key, "cid": self.cid, "tel": tel_number}
+        data = {"appkey": self.app_key, "cid": self.cid}
         data.update(kwargs if kwargs else dict())
+        data.update({"tel": tel_number})
         data.update({"ts": str(round(time.time()))})
         form_data_text = urlencode(data)
         sign = buildSign(form_data_text, SIGN_ANDROID_LOGIN)
         form_data = form_data_text + f"&sign={sign}"
+        # print(form_data)
         url = f"https://{self.login_host}/x/passport-login/sms/send"
         response = self.request("POST", url, **{"data": form_data})
+        # print(response.text)
         return response.json()
 
     def Login(self, captcha_key: str, tel_number: str, code: str):
@@ -47,7 +50,7 @@ class LoginSms(Session):
         form_data = form_data_text + f"&sign={sign}"
         url = f"https://{self.login_host}/x/passport-login/login/sms"
         response = self.request("POST", url, **{"data": form_data})
-        print(response.text)
+        # print(response.text)
         return response.json()
 
     def Extract(self, response_json: dict) -> tuple[str, str]:

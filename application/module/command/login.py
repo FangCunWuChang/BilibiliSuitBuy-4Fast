@@ -34,18 +34,19 @@ def sms_code_login(master) -> None:
     tel_number = input("手机号:")
 
     res_data = login.SendSmsCode(tel_number)
-    if res_data != 0:
+    if res_data["code"] != 0:
         raise Exception(res_data["message"])
 
     if not res_data["data"]["captcha_key"]:
-        query_dict = urlQuerySplit(res_data["recaptcha_url"])
+        query_dict = urlQuerySplit(res_data["data"]["recaptcha_url"])
         args = (query_dict["gee_gt"], query_dict["gee_challenge"])
         gee_test_window = GeeTest(*args)
         gee_verify_dict = gee_test_window.waitFinishing()
         gee_form_data = {
             "gee_challenge": gee_verify_dict["geetest_challenge"],
             "gee_seccode": gee_verify_dict["geetest_seccode"],
-            "gee_validate": gee_verify_dict["geetest_validate"]
+            "gee_validate": gee_verify_dict["geetest_validate"],
+            "recaptcha_token": query_dict["recaptcha_token"],
         }
         res_data = login.SendSmsCode(tel_number, **gee_form_data)
 
