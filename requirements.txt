@@ -1,0 +1,6 @@
+pycryptodome
+httpx
+selenium
+pillow
+qrcode
+h2
