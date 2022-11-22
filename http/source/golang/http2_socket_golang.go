@@ -10,13 +10,13 @@ import (
 
 // BuildFrames
 // 生成帧
-func BuildFrames(headers map[string]string, formData string) *GH2.H2Connection {
+func BuildFrames(headers map[string]string, formData, httpPath string) *GH2.H2Connection {
 	var h2connection = new(GH2.H2Connection)
 	h2connection.InitiateConnection()
 	h2connection.SendSettings(0, nil, 0)
 	var __headers = GH2.HEADERS{
 		{Name: ":method", Value: "POST"},
-		{Name: ":path", Value: "/xlive/revenue/v2/order/createOrder"},
+		{Name: ":path", Value: httpPath},
 		{Name: ":authority", Value: headers["host"]},
 		{Name: ":scheme", Value: "https"},
 		{Name: "native_api_from", Value: headers["native_api_from"]},
@@ -95,10 +95,10 @@ func CloseH2(client *tls.Conn, th2 *GH2.H2Connection) {
 func main() {
 	fmt.Printf("%v\n", "http2_socket_golang")
 	var filePath = GetSettingFilePath()
-	var headers, startTime, delayTime, formData = ReaderSetting(filePath)
+	var headers, startTime, delayTime, formData, path = ReaderSetting(filePath)
 	var SleepTimeNumber = (float64(delayTime) / 1000) * float64(time.Second)
 
-	var h2connection = BuildFrames(headers, formData)
+	var h2connection = BuildFrames(headers, formData, path)
 	var __message = h2connection.DataToSend()
 	var MessageHeader = __message[:len(__message)-1]
 	var MessageBody = __message[len(__message)-1:]

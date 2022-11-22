@@ -8,8 +8,9 @@ import (
 
 // BuildMessage
 // 生成报文
-func BuildMessage(headers map[string]string, formData string) ([]byte, []byte) {
-	var message = "POST /xlive/revenue/v2/order/createOrder HTTP/1.1\r\n"
+func BuildMessage(headers map[string]string, formData, httpPath string) ([]byte, []byte) {
+	var message string
+	message += fmt.Sprintf("POST %v HTTP/1.1\r\n", httpPath)
 	message += fmt.Sprintf("native_api_from: %v\r\n", headers["native_api_from"])
 	message += fmt.Sprintf("Cookie: %v\r\n", headers["cookie"])
 	message += fmt.Sprintf("Buvid: %v\r\n", headers["buvid"])
@@ -62,10 +63,10 @@ func H1ReceiveResponse(client *tls.Conn, BufLen int64) []byte {
 func main() {
 	fmt.Printf("%v\n", "http1_socket_golang")
 	var filePath = GetSettingFilePath()
-	var headers, startTime, delayTime, formData = ReaderSetting(filePath)
+	var headers, startTime, delayTime, formData, path = ReaderSetting(filePath)
 	var SleepTimeNumber = (float64(delayTime) / 1000) * float64(time.Second)
 
-	var MessageHeader, MessageBody = BuildMessage(headers, formData)
+	var MessageHeader, MessageBody = BuildMessage(headers, formData, path)
 
 	WaitLocalBiliTimer(startTime, 3)
 

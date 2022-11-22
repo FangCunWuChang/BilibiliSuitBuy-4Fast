@@ -12,23 +12,23 @@ class SuitValue(Tool):
         super(SuitValue, self).__init__()
 
         file_path = self.GetSettingFilePath()
-        headers, start_time, delay_time, form_data = self.ReaderSetting(file_path)
+        headers, start_time, delay_time, form_data, path = self.ReaderSetting(file_path)
 
         self.host = str(headers["host"])
         self.start_time = int(start_time)
         self.delay_time = int(delay_time)
 
-        self.h2connection = self.BuildFrames(headers, form_data)
+        self.h2connection = self.BuildFrames(headers, form_data, path)
         __message = self.h2connection.data_to_send()
         self.message_header = __message[:-1]
         self.message_body = __message[-1:]
 
-    def BuildFrames(self, headers: dict, form_data: str) -> h2.connection.H2Connection:
+    def BuildFrames(self, headers: dict, form_data: str, http_path: str) -> h2.connection.H2Connection:
         h2connection = h2.connection.H2Connection()
         h2connection.initiate_connection()
         __headers = [
             (":method", "POST"),
-            (":path", "/xlive/revenue/v2/order/createOrder"),
+            (":path", str(http_path)),
             (":authority", self.host),
             (":scheme", "https"),
             ("native_api_from", headers["native_api_from"]),

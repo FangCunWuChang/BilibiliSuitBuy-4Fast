@@ -10,20 +10,20 @@ class SuitValue(Tool):
         super(SuitValue, self).__init__()
 
         file_path = self.GetSettingFilePath()
-        headers, start_time, delay_time, form_data = self.ReaderSetting(file_path)
+        headers, start_time, delay_time, form_data, path = self.ReaderSetting(file_path)
 
         self.host = str(headers["host"])
         self.start_time = int(start_time)
         self.delay_time = int(delay_time)
 
-        __message = self.BuildMessage(headers, form_data)
+        __message = self.BuildMessage(headers, form_data, path)
 
         self.message_header = __message[:-1]
         self.message_body = __message[-1:]
 
     @staticmethod
-    def BuildMessage(headers: dict, form_data: str) -> bytes:
-        message = "POST /xlive/revenue/v2/order/createOrder HTTP/1.1\r\n"
+    def BuildMessage(headers: dict, form_data: str, http_path: str) -> bytes:
+        message = f"POST {http_path} HTTP/1.1\r\n"
         message += f"native_api_from: {headers['native_api_from']}\r\n"
         message += f"Cookie: {headers['cookie']}\r\n"
         message += f"Accept: {headers['accept']}\r\n"
