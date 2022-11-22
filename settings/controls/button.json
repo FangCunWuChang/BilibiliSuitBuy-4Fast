@@ -59,7 +59,7 @@
       "y": 110
     }
   },
-  "__code_login": {
+  "qr_code_login": {
     "self": {
       "text": "扫码登录",
       "font": ["Microsoft YaHei", 14]
@@ -71,7 +71,7 @@
       "y": 160
     }
   },
-  "code_login": {
+  "sms_code_login": {
     "self": {
       "text": "短信登录",
       "font": ["Microsoft YaHei", 14]

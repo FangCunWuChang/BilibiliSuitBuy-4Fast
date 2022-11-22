@@ -1,5 +1,6 @@
 {
-  "host": "api.live.bilibili.com",
+  "new_host": "api.live.bilibili.com",
+  "old_host": "api.bilibili.com",
   "app_key": "1d8b6e7d45233436",
   "sale_time": null,
   "channel": "yingyongbao",
