@@ -1,0 +1,14 @@
+{
+  "appkey": "783bbb7264451d82",
+  "host": "passport.bilibili.com",
+  "channel": "alifenfa",
+  "headers": {
+    "Accept-Encoding": "gzip",
+    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+    "APP-KEY": "android",
+    "x-bili-mid": "",
+    "x-bili-aurora-eid": "",
+    "x-bili-aurora-zone": "",
+    "env": "prod"
+  }
+}

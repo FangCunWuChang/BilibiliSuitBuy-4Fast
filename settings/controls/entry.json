@@ -1,0 +1,62 @@
+{
+  "buy_num": {
+    "default": "1",
+    "self": {
+      "font": ["Microsoft YaHei", 16]
+    },
+    "place": {
+      "width": 120,
+      "height": 30,
+      "x": 130,
+      "y": 10
+    }
+  },
+  "item_id": {
+    "default": null,
+    "self": {
+      "font": ["Microsoft YaHei", 16]
+    },
+    "place": {
+      "width": 120,
+      "height": 30,
+      "x": 390,
+      "y": 10
+    }
+  },
+  "coupon": {
+    "default": null,
+    "self": {
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 380,
+      "height": 30,
+      "x": 130,
+      "y": 60
+    }
+  },
+  "start_time": {
+    "default": "-1",
+    "self": {
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 185,
+      "height": 30,
+      "x": 130,
+      "y": 110
+    }
+  },
+  "delay_time": {
+    "default": "0",
+    "self": {
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 175,
+      "height": 30,
+      "x": 445,
+      "y": 110
+    }
+  }
+}

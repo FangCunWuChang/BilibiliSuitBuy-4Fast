@@ -1,0 +1,62 @@
+[
+  {
+    "self": {
+      "text": "购买数量",
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 100,
+      "height": 30,
+      "x": 10,
+      "y": 10
+    }
+  },
+  {
+    "self": {
+      "text": "装扮标识",
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 100,
+      "height": 30,
+      "x": 270,
+      "y": 10
+    }
+  },
+  {
+    "self": {
+      "text": "优惠标识",
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 100,
+      "height": 30,
+      "x": 10,
+      "y": 60
+    }
+  },
+  {
+    "self": {
+      "text": "启动时间",
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 120,
+      "height": 30,
+      "x": 0,
+      "y": 110
+    }
+  },
+  {
+    "self": {
+      "text": "延时[ms]",
+      "font": ["Microsoft YaHei", 18]
+    },
+    "place": {
+      "width": 100,
+      "height": 30,
+      "x": 335,
+      "y": 110
+    }
+  }
+]

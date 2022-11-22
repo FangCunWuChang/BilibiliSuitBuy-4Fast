@@ -1,0 +1,14 @@
+[
+    {
+        "self": {"text": "手机号", "font": ["Microsoft YaHei", 18]},
+        "place": {"width": 75, "height": 30, "x": 10, "y": 10}
+    },
+    {
+        "self": {"text": "验证码", "font": ["Microsoft YaHei", 18]},
+        "place": {"width": 75, "height": 30, "x": 10, "y": 50}
+    },
+    {
+        "self": {"text": "地区号", "font": ["Microsoft YaHei", 18]},
+        "place": {"width": 75, "height": 30, "x": 10, "y": 90}
+    }
+]

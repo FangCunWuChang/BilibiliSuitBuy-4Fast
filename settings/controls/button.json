@@ -1,0 +1,158 @@
+{
+  "item_id_search": {
+    "self": {
+      "text": "搜索",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 100,
+      "height": 30,
+      "x": 520,
+      "y": 10
+    }
+  },
+  "coupon_search": {
+    "self": {
+      "text": "搜索",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 100,
+      "height": 30,
+      "x": 520,
+      "y": 60
+    }
+  },
+  "open_setting": {
+    "self": {
+      "text": "打开配置",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 150,
+      "height": 30,
+      "x": 640,
+      "y": 10
+    }
+  },
+  "open_message": {
+    "self": {
+      "text": "导入报文",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 150,
+      "height": 30,
+      "x": 640,
+      "y": 60
+    }
+  },
+  "open_login": {
+    "self": {
+      "text": "导入登录",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 150,
+      "height": 30,
+      "x": 640,
+      "y": 110
+    }
+  },
+  "__code_login": {
+    "self": {
+      "text": "扫码登录",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 150,
+      "height": 30,
+      "x": 640,
+      "y": 160
+    }
+  },
+  "code_login": {
+    "self": {
+      "text": "短信登录",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 150,
+      "height": 30,
+      "x": 640,
+      "y": 160
+    }
+  },
+  "save_setting": {
+    "self": {
+      "text": "保存配置",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 114,
+      "height": 30,
+      "x": 10,
+      "y": 160
+    }
+  },
+  "save_login": {
+    "self": {
+      "text": "登录保存",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 114,
+      "height": 30,
+      "x": 135,
+      "y": 160
+    }
+  },
+  "verify_login": {
+    "self": {
+      "text": "登录验证",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 114,
+      "height": 30,
+      "x": 258,
+      "y": 160
+    }
+  },
+  "device_info": {
+    "self": {
+      "text": "设备信息",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 114,
+      "height": 30,
+      "x": 382,
+      "y": 160
+    }
+  },
+  "from_data_info": {
+    "self": {
+      "text": "基础信息",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 114,
+      "height": 30,
+      "x": 506,
+      "y": 160
+    }
+  },
+  "start": {
+    "self": {
+      "text": "开始运行",
+      "font": ["Microsoft YaHei", 14]
+    },
+    "place": {
+      "width": 780,
+      "height": 30,
+      "x": 10,
+      "y": 210
+    }
+  }
+}

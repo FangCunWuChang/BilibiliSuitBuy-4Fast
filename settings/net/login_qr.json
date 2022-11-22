@@ -1,0 +1,12 @@
+{
+  "appkey": "4409e2ce8ffd12b8",
+  "host": "passport.bilibili.com",
+  "version": "auto",
+  "channel": "master",
+  "short_url": true,
+  "headers": {
+    "Accept-Encoding": "gzip",
+    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+    "APP-KEY": "android_tv_yst"
+  }
+}
