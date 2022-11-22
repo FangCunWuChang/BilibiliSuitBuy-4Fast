@@ -47,7 +47,6 @@ class LoginSms(Session):
         form_data = form_data_text + f"&sign={sign}"
         url = f"https://{self.login_host}/x/passport-login/login/sms"
         response = self.request("POST", url, **{"data": form_data})
-        # print(response.text)
         return response.json()
 
     def Extract(self, response_json: dict) -> tuple[str, str]:

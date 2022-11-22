@@ -54,3 +54,10 @@ class ResponseError(Exception):
         """ [错误]响应错误 """
         super(ResponseError, self).__init__(*args)
         self.title = "[错误]响应错误"
+
+
+class FormatError(Exception):
+    def __init__(self, *args: object):
+        """ [错误]格式不正确 """
+        super(FormatError, self).__init__(*args)
+        self.title = "[错误]格式不正确"

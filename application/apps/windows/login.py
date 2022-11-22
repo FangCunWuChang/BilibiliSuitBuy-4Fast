@@ -9,14 +9,17 @@ from application.module.controls import (
 
 from application.message import showinfo
 
-from application.errors import ResponseError
+from application.errors import ResponseError, FormatError
 from application.module.decoration import (
     application_error, application_thread
 )
 
 from web.geetest_validator.geetest import GeeTest
 
-from application.config import login_config_sms
+from application.config import (
+    sms_login_box_entry_settings,
+    sms_login_box_label_settings
+)
 
 from functools import partial
 from PIL import ImageTk
@@ -49,37 +52,11 @@ class SmsLoginWindow(TopWindow):
         devices_data = get_all_value(master, "Device_", [])
         model_build = (devices_data["AndroidModel"], devices_data["AndroidBuild"])
 
-        for label_config in [
-            {
-                "self": {"text": "手机号", "font": ["Microsoft YaHei", 18]},
-                "place": {"width": 75, "height": 30, "x": 10, "y": 10}
-            },
-            {
-                "self": {"text": "验证码", "font": ["Microsoft YaHei", 18]},
-                "place": {"width": 75, "height": 30, "x": 10, "y": 50}
-            },
-            {
-                "self": {"text": "地区号", "font": ["Microsoft YaHei", 18]},
-                "place": {"width": 75, "height": 30, "x": 10, "y": 90}
-            }
-        ]:
+        for label_config in sms_login_box_label_settings:
             TkinterLabel(self, label_config)
 
-        self.tel_number_entry = TkinterEntry(self, {
-            "default": None, "self": {"font": ["Microsoft YaHei", 16]},
-            "place": {"width": 185, "height": 30, "x": 100, "y": 10}
-        })
-
-        self.verify_code_entry = TkinterEntry(self, {
-            "default": None, "self": {"font": ["Microsoft YaHei", 16]},
-            "place": {"width": 105, "height": 30, "x": 100, "y": 50}
-        })
-
-        self.cid_entry = TkinterEntry(self, {
-            "default": str(login_config_sms["cid"]),
-            "self": {"font": ["Microsoft YaHei", 16]},
-            "place": {"width": 50, "height": 30, "x": 100, "y": 90}
-        })
+        for name, entry_config in sms_login_box_entry_settings.items():
+            self[f"{name}_entry"] = TkinterEntry(self, entry_config)
 
         TkinterButton(self, {
             "self": {"text": "发送", "font": ["Microsoft YaHei", 16]},
@@ -99,8 +76,14 @@ class SmsLoginWindow(TopWindow):
     @application_thread
     @application_error
     def send_verify_code(self) -> None:
-        tel_number = self.tel_number_entry.value("未输入手机号")
-        cid = self.cid_entry.value("未输入区号")
+        tel_number = self["tel_number_entry"].value("未输入手机号")
+        tel_number = tel_number.replace(" ", "")
+        if not tel_number.isdigit():
+            raise FormatError("手机号格式不正确")
+        cid = self["cid_entry"].value("未输入区号")
+        cid = cid.replace(" ", "")
+        if not cid.isdigit():
+            raise FormatError("地区号格式不正确")
         res_data = self.login.SendSmsCode(tel_number, cid)
         if res_data["code"] != 0:
             raise ResponseError(res_data["message"])
@@ -122,9 +105,18 @@ class SmsLoginWindow(TopWindow):
     @application_thread
     @application_error
     def login_login(self, master) -> None:
-        tel_number = self.tel_number_entry.value("未输入手机号")
-        cid = self.cid_entry.value("未输入区号")
-        code = self.verify_code_entry.value("未输入验证码")
+        tel_number = self["tel_number_entry"].value("未输入手机号")
+        tel_number = tel_number.replace(" ", "")
+        if not tel_number.isdigit():
+            raise FormatError("手机号格式不正确")
+        cid = self["cid_entry"].value("未输入区号")
+        cid = cid.replace(" ", "")
+        if not cid.isdigit():
+            raise FormatError("地区号格式不正确")
+        code = self["verify_code_entry"].value("未输入验证码")
+        code = code.replace(" ", "")
+        if not cid.isdigit():
+            raise FormatError("验证码格式不正确")
         res = self.login.Login(self.captcha_key, tel_number, cid, code)
         if res["code"] != 0:
             raise ResponseError(res["message"])

@@ -10,6 +10,9 @@ device_info_entry_settings = reader("./settings/controls/device_info/entry.json"
 from_data_info_label_settings = reader("./settings/controls/from_data_info/label.json")
 from_data_info_entry_settings = reader("./settings/controls/from_data_info/entry.json")
 
+sms_login_box_label_settings = reader("./settings/controls/sms_login_box/label.json")
+sms_login_box_entry_settings = reader("./settings/controls/sms_login_box/entry.json")
+
 net_session_config = reader("./settings/net/setting.json")
 login_config_qr = reader("./settings/net/login_qr.json")
 login_config_sms = reader("./settings/net/login_sms.json")
