@@ -18,10 +18,11 @@ import time
 @application_error
 def sms_code_login(master) -> None:
     sms_box = SmsLoginWindow(master)
-    while sms_box.login_ok is False:
-        time.sleep(1)
-    sms_box.destroy()
-    showinfo("提示", "操作完成")
+    while sms_box.login_ok is False and sms_box.winfo_exists():
+        time.sleep(0.5)
+    if sms_box.login_ok is True:
+        sms_box.destroy()
+        showinfo("提示", "操作完成")
 
 
 @application_thread
@@ -41,7 +42,7 @@ def qr_code_login(master) -> None:
             break
         if code == 86038:
             raise Exception("二维码已失效")
-        time.sleep(3)
+        time.sleep(1)
     login_box.destroy()
 
 
