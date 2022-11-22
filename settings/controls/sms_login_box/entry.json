@@ -29,10 +29,10 @@
       "font": ["Microsoft YaHei", 16]
     },
     "place": {
-      "width": 65,
+      "width": 50,
       "height": 30,
-      "x": 220,
-      "y": 50
+      "x": 100,
+      "y": 90
     }
   }
 }
