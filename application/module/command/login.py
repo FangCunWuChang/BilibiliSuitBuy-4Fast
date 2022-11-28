@@ -11,18 +11,22 @@ from application.net.utils import login_verify
 
 from application.message import askyesno, showwarning, showinfo
 
+import webbrowser
 import time
 
 
 @application_thread
 @application_error
 def sms_code_login(master) -> None:
-    sms_box = SmsLoginWindow(master)
-    while sms_box.login_ok is False and sms_box.winfo_exists():
-        time.sleep(0.5)
-    if sms_box.login_ok is True:
-        sms_box.destroy()
-        showinfo("提示", "操作完成")
+    if askyesno("提示", "是否获取新登陆器"):
+        webbrowser.open("https://github.com/lllk140/bilibili-login")
+    else:
+        sms_box = SmsLoginWindow(master)
+        while sms_box.login_ok is False and sms_box.winfo_exists():
+            time.sleep(0.5)
+        if sms_box.login_ok is True:
+            sms_box.destroy()
+            showinfo("提示", "操作完成")
 
 
 @application_thread
