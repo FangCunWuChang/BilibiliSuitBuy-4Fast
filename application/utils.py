@@ -4,10 +4,8 @@ from application.errors import (
     SdkIntIndexError
 )
 
-from Crypto.Util.Padding import unpad, pad
 from urllib.parse import urlsplit
 from urllib.parse import unquote
-from Crypto.Cipher import AES
 import hashlib
 import base64
 import json
@@ -25,25 +23,20 @@ SIGN_ANDROID: str = "560c52ccd288fed045859ed18bffd973"
 SIGN_ANDROID_LOGIN: str = "2653583c8873dea268ab9386918b1d65"
 
 
-def reader(path: str, mode=ReaderMode_Setting, **kwargs) -> list | dict | bytes:
+def reader(path: str, mode=ReaderMode_Setting) -> list | dict | bytes:
     """ 读取文件 """
     if not os.path.exists(path):
         ReaderError(f"无法打开{path}")
     with open(os.path.abspath(path), "rb") as file:
         file_data = file.read()
     file.close()
-    if kwargs.get("crypto", False) is not False:
-        key: str = kwargs.get("key", str())
-        cipher = AES.new(key.encode(), AES.MODE_ECB)
-        file_data_de = cipher.decrypt(file_data)
-        file_data = unpad(file_data_de, AES.block_size)
     if mode == ReaderMode_Setting:
         return json.loads(file_data.decode())
     if mode == ReaderMode_Content:
         return file_data
 
 
-def writer(path: str, data: list | dict | bytes, **kwargs) -> str:
+def writer(path: str, data: list | dict | bytes) -> str:
     """ 写入 """
     file_path, file = os.path.split(path)
     if not os.path.exists(file_path):
@@ -51,11 +44,6 @@ def writer(path: str, data: list | dict | bytes, **kwargs) -> str:
     write_data = data
     if isinstance(data, list) or isinstance(data, dict):
         write_data = json.dumps(data).encode()
-    if kwargs.get("crypto", False) is not False:
-        key: str = kwargs.get("key", str())
-        cipher = AES.new(key.encode(), AES.MODE_ECB)
-        write_data = pad(write_data, AES.block_size)
-        write_data = cipher.encrypt(write_data)
     with open(path, "wb") as w_file:
         w_file.write(write_data)
     w_file.close()
