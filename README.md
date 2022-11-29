@@ -18,7 +18,7 @@
 
 **启动时间留空就是自动获取装扮开售时间**
 
-移除原先登陆方法，另开一个来实现登陆 [新登陆器](https://github.com/lllk140/bilibili-login)
+移除原先登陆方法，另开一个来实现登陆 [新登陆器](https://github.com/lllk140/BilibiliLogin)
 
 登陆保存的文件通用的，导入就行
 
