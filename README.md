@@ -43,8 +43,6 @@
 
 [github.com/python-hyper/h2](https://github.com/python-hyper/h2)
 
-[github.com/kuresaru/geetest-validator](https://github.com/kuresaru/geetest-validator)
-
 [plain-sockets-example.html](https://python-hyper.org/projects/h2/en/stable/plain-sockets-example.html)
 
 ------------------------------------------------
