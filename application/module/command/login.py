@@ -13,7 +13,7 @@ import webbrowser
 
 def get_login_device(_) -> None:
     if askyesno("提示", "是否获取新登陆器"):
-        webbrowser.open("https://github.com/lllk140/bilibili-login")
+        webbrowser.open("https://github.com/lllk140/BilibiliLogin")
 
 
 @application_thread
