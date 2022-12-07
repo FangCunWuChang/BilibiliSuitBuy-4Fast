@@ -12,7 +12,7 @@
 
 ```pip install -r requirements.txt```
 
-```python mian.py```
+```python main.py```
 
 ------------------------------------------------
 
