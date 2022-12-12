@@ -1,0 +1,78 @@
+{
+  "label": [
+    {
+      "self": {
+        "text": "设备标识",
+        "font": ["Microsoft YaHei", 18]
+      },
+      "place": {
+        "width": 100,
+        "height": 30,
+        "x": 10,
+        "y": 10
+      }
+    },
+    {
+      "self": {
+        "text": "手机型号",
+        "font": ["Microsoft YaHei", 18]
+      },
+      "place": {
+        "width": 100,
+        "height": 30,
+        "x": 10,
+        "y": 50
+      }
+    },
+    {
+      "self": {
+        "text": "安卓版本",
+        "font": ["Microsoft YaHei", 18]
+      },
+      "place": {
+        "width": 100,
+        "height": 30,
+        "x": 10,
+        "y": 90
+      }
+    }
+  ],
+  "entry": {
+    "buvid": {
+      "default": null,
+      "self": {
+        "font": ["Microsoft YaHei", 14]
+      },
+      "place": {
+        "width": 400,
+        "height": 30,
+        "x": 120,
+        "y": 10
+      }
+    },
+    "android_model": {
+      "default": null,
+      "self": {
+        "font": ["Microsoft YaHei", 14]
+      },
+      "place": {
+        "width": 400,
+        "height": 30,
+        "x": 120,
+        "y": 50
+      }
+    },
+    "android_build": {
+      "default": null,
+      "self": {
+        "font": ["Microsoft YaHei", 14]
+      },
+      "place": {
+        "width": 400,
+        "height": 30,
+        "x": 120,
+        "y": 90
+      }
+    }
+  }
+}

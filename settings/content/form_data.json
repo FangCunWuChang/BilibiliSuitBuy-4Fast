@@ -1,0 +1,5 @@
+{
+  "android_old": "access_key={ACCESS_KEY}&add_month={ADD_MONTH}&appkey=1d8b6e7d45233436&buy_num={BUY_NUM}&coupon_token={COUPON_TOKEN}&csrf={CSRF}&currency=bp&disable_rcmd=0&f_source={F_SOURCE}&from={SHOP_FROM}&from_id=&item_id={ITEM_ID}&m_source=&platform=android&statistics={STATISTICS}&ts={TS}",
+  "android_new": "access_key={ACCESS_KEY}&appkey=1d8b6e7d45233436&biz_extra={BIZ_EXTRA}&biz_id={ITEM_ID}&biz_source=1&context_id=0&context_type=102&csrf={CSRF}&disable_rcmd=0&goods_id=195&goods_num={BUY_NUM}&pay_bp={PAY_BP}&platform=android&statistics={STATISTICS}&ts={TS}",
+  "ios": "你先v我一台果子，我马上支持\uD83D\uDE35"
+}
