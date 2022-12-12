@@ -1,4 +1,4 @@
-from application.errors import LoginWarning
+from application.errors import LoginWarning, GuiValueError
 from application.net.session import Session
 
 
@@ -17,10 +17,14 @@ def get_versions(mod: str = MobiAPP_ANDROID) -> tuple[str, str]:
 
 def get_sale_time(item_id: str) -> int:
     """ 获取开售时间 """
-    url = f"https://api.bilibili.com/x/garb/v2/mall/suit/detail"
-    with Session() as session:
-        res = session.request("GET", url, params={"item_id": item_id})
-    return int(res.json()["data"]["properties"]["sale_time_begin"])
+    try:
+        url = f"https://api.bilibili.com/x/garb/v2/mall/suit/detail"
+        with Session() as session:
+            res = session.request("GET", url, params={"item_id": item_id})
+    except Exception as err:
+        raise GuiValueError("不正确的装扮标识或他错误", err)
+    else:
+        return int(res.json()["data"]["properties"]["sale_time_begin"])
 
 
 def search_suit(key: str) -> list:
