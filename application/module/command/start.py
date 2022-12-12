@@ -53,7 +53,7 @@ def start(master) -> None:
 
     if time.time() >= start_time:
         raise GuiStartWarning("启动时间小于当前时间")
-    if start_time <= suit_sale_time:
+    if start_time < suit_sale_time:
         raise GuiStartWarning("启动时间小于装扮开售时间")
 
     entry_data.update({"start_time": start_time})
