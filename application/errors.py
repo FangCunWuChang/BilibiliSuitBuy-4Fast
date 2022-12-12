@@ -61,3 +61,10 @@ class FormatError(Exception):
         """ [错误]格式不正确 """
         super(FormatError, self).__init__(*args)
         self.title = "[错误]格式不正确"
+
+
+class GuiStartWarning(Warning):
+    """ [警告]无法启动 """
+    def __init__(self, *args: object):
+        super(GuiStartWarning, self).__init__(*args)
+        self.title = "[警告]无法启动"

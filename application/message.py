@@ -19,26 +19,12 @@ def showerror(title: str, message: any):
     tkinter.messagebox.showerror(title, message)
 
 
-def askyesno(title: str, message: any) -> bool:
-    """ 选择框 """
-    return tkinter.messagebox.askyesno(title, message)
-
-
-def asksaveasfile(title, types, initialfile="setting.json") -> str:
-    """ 打开文件框，选择保存位置 """
-    kwargs = {"title": title, "filetypes": types}
-    if initialfile:
-        kwargs.update({"initialfile": initialfile})
-    file_ack = tkinter.filedialog.asksaveasfile(**kwargs)
-    if not file_ack:
-        raise GuiFileAskWarning("文件会话框未选择")
-    return file_ack.name
-
-
 def askopenfilename(title, types, initialfile=None) -> str:
     """ 打开文件框，选择打开位置 """
     kwargs = {"title": title, "filetypes": types}
     if initialfile and isinstance(initialfile, str):
         kwargs.update({"initialfile": initialfile})
     file_ack = tkinter.filedialog.askopenfilename(**kwargs)
+    if not file_ack:
+        raise GuiFileAskWarning("...")
     return file_ack
