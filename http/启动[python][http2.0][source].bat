@@ -2,6 +2,6 @@
 
 cd %~dp0source\python
 
-python http2_socket_python.exe %1
+python http2_socket_python.py %1
 
 pause

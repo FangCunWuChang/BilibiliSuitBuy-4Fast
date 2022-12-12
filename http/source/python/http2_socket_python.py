@@ -11,42 +11,33 @@ class SuitValue(Tool):
     def __init__(self):
         super(SuitValue, self).__init__()
 
-        file_path = self.GetSettingFilePath()
-        headers, start_time, delay_time, form_data, path = self.ReaderSetting(file_path)
+        file_path = self.GetStartFilePath()
+        headers, start_time, delay_time, form_data = self.ReaderSetting(file_path)
 
         self.host = str(headers["host"])
         self.start_time = int(start_time)
         self.delay_time = int(delay_time)
 
-        self.h2connection = self.BuildFrames(headers, form_data, path)
+        self.h2connection = self.BuildFrames(headers, form_data)
         __message = self.h2connection.data_to_send()
         self.message_header = __message[:-1]
         self.message_body = __message[-1:]
 
-    def BuildFrames(self, headers: dict, form_data: str, http_path: str) -> h2.connection.H2Connection:
+    def BuildFrames(self, headers: dict, form_data: str) -> h2.connection.H2Connection:
         h2connection = h2.connection.H2Connection()
         h2connection.initiate_connection()
+        headers.pop("host", ...)
+
         __headers = [
             (":method", "POST"),
-            (":path", str(http_path)),
+            (":path", "/xlive/revenue/v2/order/createOrder"),
             (":authority", self.host),
-            (":scheme", "https"),
-            ("native_api_from", headers["native_api_from"]),
-            ("buvid", headers["buvid"]),
-            ("accept", headers["accept"]),
-            ("referer", headers["referer"]),
-            ("env", headers["env"]),
-            ("app-key", headers["app-key"]),
-            ("user-agent", headers["user-agent"]),
-            ("x-bili-trace-id", headers["x-bili-trace-id"]),
-            ("x-bili-aurora-eid", headers["x-bili-aurora-eid"]),
-            ("x-bili-mid", headers["x-bili-mid"]),
-            ("x-bili-aurora-zone", headers["x-bili-aurora-zone"]),
-            ("content-type", headers["content-type"]),
-            ("content-length", headers["content-length"]),
-            ("accept-encoding", headers["accept-encoding"]),
-            ("cookie", headers["cookie"]),
+            (":scheme", "https")
         ]
+
+        for li in headers.items():
+            __headers.append(li)
+
         h2connection.send_headers(1, __headers)
         h2connection.send_data(1, form_data.encode(), end_stream=True)
         return h2connection

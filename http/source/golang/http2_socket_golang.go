@@ -5,34 +5,31 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/lllk140/gh2/GH2"
+	"golang.org/x/net/http2/hpack"
 	"time"
 )
 
 // BuildFrames
 // 生成帧
-func BuildFrames(headers map[string]string, formData, httpPath string) *GH2.H2Connection {
+func BuildFrames(headers map[string]string, formData string) *GH2.H2Connection {
 	var h2connection = new(GH2.H2Connection)
 	h2connection.InitiateConnection()
 	h2connection.SendSettings(0, nil, 0)
+
 	var __headers = GH2.HEADERS{
 		{Name: ":method", Value: "POST"},
-		{Name: ":path", Value: httpPath},
+		{Name: ":path", Value: "/xlive/revenue/v2/order/createOrder"},
 		{Name: ":authority", Value: headers["host"]},
 		{Name: ":scheme", Value: "https"},
-		{Name: "native_api_from", Value: headers["native_api_from"]},
-		{Name: "buvid", Value: headers["buvid"]},
-		{Name: "accept", Value: headers["accept"]},
-		{Name: "env", Value: headers["env"]},
-		{Name: "app-key", Value: headers["app-key"]},
-		{Name: "user-agent", Value: headers["user-agent"]},
-		{Name: "x-bili-trace-id", Value: headers["x-bili-trace-id"]},
-		{Name: "x-bili-mid", Value: headers["x-bili-mid"]},
-		{Name: "x-bili-aurora-zone", Value: headers["x-bili-aurora-zone"]},
-		{Name: "content-type", Value: headers["content-type"]},
-		{Name: "content-length", Value: headers["content-length"]},
-		{Name: "accept-encoding", Value: headers["accept-encoding"]},
-		{Name: "cookie", Value: headers["cookie"]},
 	}
+
+	delete(headers, "host")
+
+	for s := range headers {
+		var data = hpack.HeaderField{Name: s, Value: headers[s]}
+		__headers = append(__headers, data)
+	}
+
 	h2connection.SendHeaders(1, __headers, 4)
 	h2connection.SendData(1, []byte(formData), 1)
 	return h2connection
@@ -95,17 +92,19 @@ func CloseH2(client *tls.Conn, th2 *GH2.H2Connection) {
 func main() {
 	fmt.Printf("%v\n", "http2_socket_golang")
 	var filePath = GetSettingFilePath()
-	var headers, startTime, delayTime, formData, path = ReaderSetting(filePath)
+	var headers, startTime, delayTime, formData = ReaderSetting(filePath)
+	var tlsHost = headers["host"]
+
 	var SleepTimeNumber = (float64(delayTime) / 1000) * float64(time.Second)
 
-	var h2connection = BuildFrames(headers, formData, path)
+	var h2connection = BuildFrames(headers, formData)
 	var __message = h2connection.DataToSend()
 	var MessageHeader = __message[:len(__message)-1]
 	var MessageBody = __message[len(__message)-1:]
 
 	WaitLocalBiliTimer(startTime, 3)
 
-	var client = H2CreateTlsConnection(headers["host"])
+	var client = H2CreateTlsConnection(tlsHost)
 	H2SendMessage(client, MessageHeader)
 
 	WaitServerBiliTimer(startTime, 4)

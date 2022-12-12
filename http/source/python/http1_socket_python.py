@@ -9,39 +9,26 @@ class SuitValue(Tool):
     def __init__(self):
         super(SuitValue, self).__init__()
 
-        file_path = self.GetSettingFilePath()
-        headers, start_time, delay_time, form_data, path = self.ReaderSetting(file_path)
+        file_path = self.GetStartFilePath()
+        headers, start_time, delay_time, form_data = self.ReaderSetting(file_path)
 
         self.host = str(headers["host"])
         self.start_time = int(start_time)
         self.delay_time = int(delay_time)
 
-        __message = self.BuildMessage(headers, form_data, path)
+        __message = self.BuildMessage(headers, form_data)
 
         self.message_header = __message[:-1]
         self.message_body = __message[-1:]
 
     @staticmethod
-    def BuildMessage(headers: dict, form_data: str, http_path: str) -> bytes:
-        message = f"POST {http_path} HTTP/1.1\r\n"
-        message += f"native_api_from: {headers['native_api_from']}\r\n"
-        message += f"Cookie: {headers['cookie']}\r\n"
-        message += f"Accept: {headers['accept']}\r\n"
-        message += f"Referer: {headers['referer']}\r\n"
-        message += f"env: {headers['env']}\r\n"
-        message += f"APP-KEY: {headers['app-key']}\r\n"
-        message += f"Buvid: {headers['buvid']}\r\n"
-        message += f"User-Agent: {headers['user-agent']}\r\n"
-        message += f"x-bili-trace-id: {headers['x-bili-trace-id']}\r\n"
-        message += f"x-bili-aurora-eid: {headers['x-bili-aurora-eid']}\r\n"
-        message += f"x-bili-mid: {headers['x-bili-mid']}\r\n"
-        message += f"x-bili-aurora-zone: {headers['x-bili-aurora-zone']}\r\n"
-        message += f"Content-Type: application/x-www-form-urlencoded; charset=utf-8\r\n"
-        message += f"Content-Length: {headers['content-length']}\r\n"
-        message += f"Host: {headers['host']}\r\n"
-        message += f"Connection: {headers['connection']}\r\n"
-        message += f"Accept-Encoding: {headers['accept-encoding']}\r\n\r\n"
-        return str(message + form_data).encode()
+    def BuildMessage(headers: dict, form_data: str) -> bytes:
+        message = f"POST /xlive/revenue/v2/order/createOrder HTTP/1.1\r\n"
+
+        for li in headers.items():
+            message += ": ".join(list(li)) + "\r\n"
+
+        return str(message + "\r\n" + form_data).encode()
 
 
 class SuitBuy(SuitValue):

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 )
 
 func GetSettingFilePath() string {
@@ -22,36 +23,38 @@ func GetSettingFilePath() string {
 	return FilePath
 }
 
-func ReaderSetting(filePath string) (map[string]string, int64, int64, string, string) {
+type SettingContent struct {
+	StartTime int64  `json:"start_time"`
+	DelayTime int64  `json:"delay_time"`
+	ItemId    string `json:"item_id"`
+}
+
+type SettingFile struct {
+	Setting  SettingContent    `json:"setting"`
+	FormData string            `json:"form_data"`
+	Headers  map[string]string `json:"headers"`
+}
+
+func ReaderSetting(filePath string) (map[string]string, int64, int64, string) {
 	var SettingData, _ = os.ReadFile(filePath)
-	var JsonHeaders = make(map[string]map[string]string)
-	var JsonSetting = make(map[string]map[string]int64)
-	var JsonFormData = make(map[string]string)
-	var JsonOldOrNew = make(map[string]bool)
+	var settingContent = SettingFile{}
 
-	_ = json.Unmarshal(SettingData, &JsonHeaders)
-	_ = json.Unmarshal(SettingData, &JsonSetting)
-	_ = json.Unmarshal(SettingData, &JsonFormData)
-	_ = json.Unmarshal(SettingData, &JsonOldOrNew)
+	_ = json.Unmarshal(SettingData, &settingContent)
 
-	var headers = JsonHeaders["headers"]
-	var formData = JsonFormData["form_data"]
-	var startTime = JsonSetting["setting"]["start_time"]
-	var delayTime = JsonSetting["setting"]["delay_time"]
-	var oldOrNew = JsonOldOrNew["old_or_new"]
+	var headers = settingContent.Headers
+	var formData = settingContent.FormData
+	var startTime = settingContent.Setting.StartTime
 
-	var path string
-	if oldOrNew {
-		fmt.Printf("启用老接口:[%v]\n", "是")
-		path = "/x/garb/v2/trade/create"
-	} else {
-		fmt.Printf("启用老接口:[%v]\n", "否")
-		path = "/xlive/revenue/v2/order/createOrder"
+	if startTime <= time.Now().Unix() {
+		fmt.Printf("%v\n", "启动时间小于当前时间")
+		os.Exit(2)
 	}
 
-	fmt.Printf("装扮id:[%v]\n", JsonHeaders["setting"]["item_id"])
+	var delayTime = settingContent.Setting.DelayTime
+
+	fmt.Printf("装扮id:[%v]\n", settingContent.Setting.ItemId)
 	fmt.Printf("启动时间:[%v]\n", startTime)
 	fmt.Printf("延时:[%vms]\n", delayTime)
 
-	return headers, startTime, delayTime, formData, path
+	return headers, startTime, delayTime, formData
 }
