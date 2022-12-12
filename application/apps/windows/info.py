@@ -11,10 +11,7 @@ from application.utils import (
 )
 
 from application.config import (
-    device_info_label_settings,
-    device_info_entry_settings,
-    from_data_info_entry_settings,
-    from_data_info_label_settings
+    device_info_settings, from_data_info_settings
 )
 
 from application.message import showinfo
@@ -28,10 +25,10 @@ class DeviceInfoWindow(TopWindow):
         super(DeviceInfoWindow, self).__init__("设备信息设置", "530x170")
 
         # 生成标签
-        for label_config in device_info_label_settings:
+        for label_config in device_info_settings["label"]:
             TkinterLabel(self, label_config)
         # 生成输入框
-        for key, entry_config in device_info_entry_settings.items():
+        for key, entry_config in device_info_settings["entry"].items():
             self[key + "_entry"] = TkinterEntry(self, entry_config)
 
         TkinterButton(self, {
@@ -48,7 +45,7 @@ class DeviceInfoWindow(TopWindow):
     @application_error
     def save_button(self, master):
         value_dict = get_all_value(self, "_entry", [])
-        writer("./device_info/device.json", value_dict)
+        writer("./app_device.json", value_dict)
         master["Device_Buvid"] = value_dict["buvid"]
         master["Device_AndroidModel"] = value_dict["android_model"]
         master["Device_AndroidBuild"] = value_dict["android_build"]
@@ -61,10 +58,10 @@ class FromDataWindow(TopWindow):
         super(FromDataWindow, self).__init__("基础信息设置", "280x250")
 
         # 生成标签
-        for label_config in from_data_info_label_settings:
+        for label_config in from_data_info_settings["label"]:
             TkinterLabel(self, label_config)
         # 生成输入框
-        for key, entry_config in from_data_info_entry_settings.items():
+        for key, entry_config in from_data_info_settings["entry"].items():
             self[key + "_entry"] = TkinterEntry(self, entry_config)
 
         TkinterButton(self, {

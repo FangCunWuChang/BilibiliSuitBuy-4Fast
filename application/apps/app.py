@@ -1,8 +1,6 @@
 from application.errors import GuiValueError
 
-from application.config import (
-    button_settings, label_settings, entry_settings
-)
+from application.config import app_settings
 
 from application.module.controls import (
     TkinterLabel, TkinterButton, TkinterEntry
@@ -16,11 +14,37 @@ from application.net.utils import (
     get_versions, MobiAPP_ANDROID
 )
 
-from application.module.com import func_list
-
 from functools import partial
 import tkinter
 import os
+
+
+from application.module.command.serach import (
+    item_id_search, coupon_search
+)
+
+from application.module.command.info import (
+    device_info, from_data_info
+)
+
+from application.module.command.open import (
+    open_login, open_message
+)
+
+from application.module.command.start import (
+    start, app_help
+)
+
+main_func_list = [
+    (item_id_search, "item_id_search"),
+    (coupon_search, "coupon_search"),
+    (device_info, "device_info"),
+    (open_login, "open_login"),
+    (from_data_info, "from_data_info"),
+    (open_message, "open_message"),
+    (start, "start"),
+    (app_help, "help")
+]
 
 
 class AppDeviceInfo(object):
@@ -61,26 +85,26 @@ class App(tkinter.Tk, AppDeviceInfo, AppFromDataInfo, AppLoginInfo):
         self.title("理塘最強伝説と絶兇の猛虎!純真丁一郎です")
         self.configure(background="#f0f0f0")
         self.resizable(False, False)
-        self.geometry("800x250")
+        self.geometry("470x210")
 
         AppFromDataInfo.__init__(self)
         AppDeviceInfo.__init__(self)
         AppLoginInfo.__init__(self)
 
         # 生成标签
-        for label_config in label_settings:
+        for label_config in app_settings["label"]:
             TkinterLabel(self, label_config)
 
         # 生成输入框
-        for key, entry_config in entry_settings.items():
+        for key, entry_config in app_settings["entry"].items():
             self[key + "_entry"] = TkinterEntry(self, entry_config)
 
         # 生成按钮
-        for func, name in func_list:
-            TkinterButton(self, button_settings[name], partial(func, self))
+        for func, name in main_func_list:
+            TkinterButton(self, app_settings["button"][name], partial(func, self))
 
-        if os.path.exists("./device_info/device.json"):
-            device_config = reader("./device_info/device.json")
+        if os.path.exists("./app_device.json"):
+            device_config = reader("./app_device.json")
             self.Device_Buvid = device_config["buvid"]
             self.Device_AndroidModel = device_config["android_model"]
             self.Device_AndroidBuild = device_config["android_build"]
