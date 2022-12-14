@@ -1,1 +1,1 @@
-打包就行
+运行install-http.bat
