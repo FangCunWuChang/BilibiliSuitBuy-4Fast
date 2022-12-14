@@ -1,6 +1,6 @@
 @echo off
 
-echo install python
+echo install python-http
 
 cd %~dp0http\source\python
 
@@ -22,7 +22,7 @@ rd /s /q dist
 
 del /f /s /q *.spec
 
-echo install golang
+echo install golang-http
 
 cd %~dp0http\source\golang
 
@@ -35,3 +35,5 @@ move http1_socket_golang.exe %~dp0http\exe
 move http2_socket_golang.exe %~dp0http\exe
 
 pause
+
+exit
