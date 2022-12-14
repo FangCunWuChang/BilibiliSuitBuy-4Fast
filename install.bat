@@ -2,7 +2,7 @@
 
 echo install app
 
-start "install-http" install-http.bat
+install-http
 
 cd %~dp0
 

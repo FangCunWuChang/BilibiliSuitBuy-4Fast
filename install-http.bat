@@ -35,5 +35,3 @@ move http1_socket_golang.exe %~dp0http\exe
 move http2_socket_golang.exe %~dp0http\exe
 
 pause
-
-exit
