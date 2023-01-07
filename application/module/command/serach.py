@@ -1,43 +1,35 @@
+import tkinter
+import time
+
 from application.module.decoration import (
-    application_error, application_thread
+    application_error,
+    application_thread
 )
-
-
-from application.apps.windows.serach import (
-    ItemsListWindow,
-    CouponListWindow
-)
-
-from application.errors import LoginWarning
-
+from application.module.utils import ButtonCommand
+from application.net.utils import search_suit
 from application.message import showinfo
 
-from application.net.utils import search_coupon, login_verify
-from application.utils import parse_cookies
 
+class ItemIdSearchCommandSearch(ButtonCommand):
+    def __init__(self, *args, **kwargs):
+        super(ItemIdSearchCommandSearch, self).__init__(*args, **kwargs)
 
-@application_thread
-@application_error
-def item_id_search(master) -> None:
-    ItemsListWindow(master)
+    @application_thread
+    @application_error
+    def func(self):
+        self.root["list_box"].delete("0", tkinter.END)
+        self.root.item_id_dict = dict()
 
-
-@application_thread
-@application_error
-def coupon_search(master) -> None:
-    cookie = getattr(master, "Value_cookie", None)
-    access_key = getattr(master, "Value_accessKey", None)
-    if not all([cookie, access_key]):
-        raise LoginWarning("未导入登陆标识")
-
-    mid = login_verify(parse_cookies(cookie), access_key)
-    if mid is False:
-        raise LoginWarning("登录标识验证失败")
-
-    item_id = master["item_id_entry"].value("未填写装扮标识")
-
-    coupon_list = search_coupon(item_id, parse_cookies(cookie))
-    if not coupon_list:
-        return showinfo("提示", "未搜索到可用优惠券")
-
-    CouponListWindow(master, coupon_list)
+        item_id = self.root["ItemId_entry"].value()
+        if not item_id:
+            return showinfo("提示", "未填写关键字")
+        item_id_list = search_suit(item_id)
+        for number, item in enumerate(item_id_list):
+            self.root.item_id_dict[number] = str(item["item_id"])
+            sale = float(item["properties"]["sale_time_begin"])
+            sale_time = time.localtime(sale)
+            time_text = time.strftime("%Y-%m-%d %H:%M:%S", sale_time)
+            suit_text = f"[{time_text}]{item['name']}"
+            self.root["list_box"].insert(tkinter.END, suit_text)
+        if not item_id_list:
+            showinfo("提示", "无搜索结果")

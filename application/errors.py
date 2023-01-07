@@ -1,3 +1,57 @@
+class GuiItemNotExist(Exception):
+    """ [错误]GUI无法取得值 """
+    def __init__(self, *args):
+        super(GuiItemNotExist, self).__init__(*args)
+        self.title = "GUI无法取得值"
+
+
+class DidNotEnter(Warning):
+    """ [警告]未输入内容 """
+    def __init__(self, *args):
+        super(DidNotEnter, self).__init__(*args)
+        self.title = "[警告]未输入内容"
+
+
+class GuiDeviceValueNotExist(Warning):
+    """ [警告]设备信息未填写 """
+    def __init__(self, *args):
+        super(GuiDeviceValueNotExist, self).__init__(*args)
+        self.title = "[警告]设备信息未填写"
+
+
+class GuiBaseValueNotExist(Warning):
+    """ [警告]基础信息未填写 """
+    def __init__(self, *args):
+        super(GuiBaseValueNotExist, self).__init__(*args)
+        self.title = "[警告]基础信息未填写"
+
+
+class GuiLoginValueNotExist(Warning):
+    """ [警告]登陆信息未导入/获取 """
+    def __init__(self, *args):
+        super(GuiLoginValueNotExist, self).__init__(*args)
+        self.title = "[警告]登陆信息未导入/获取"
+
+
+class BuyNumberFormatError(Warning):
+    """ [警告]购买数量格式错误 """
+    def __init__(self, *args):
+        super(BuyNumberFormatError, self).__init__(*args)
+        self.title = "[警告]购买数量格式错误"
+
+
+class DelayTimeFormatError(Warning):
+    """ [警告]延时时间格式错误 """
+    def __init__(self, *args):
+        super(DelayTimeFormatError, self).__init__(*args)
+        self.title = "[警告]延时时间格式错误"
+
+
+class ItemIdFormatError(Warning):
+    """ [警告]装扮标识格式错误 """
+    def __init__(self, *args):
+        super(ItemIdFormatError, self).__init__(*args)
+        self.title = "[警告]装扮标识格式错误"
 
 
 class ReaderError(Exception):

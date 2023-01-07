@@ -1,4 +1,4 @@
-from application.errors import LoginWarning, GuiValueError
+from application.errors import LoginWarning, GuiValueError, ResponseError
 from application.net.session import Session
 
 
@@ -48,19 +48,22 @@ def search_coupon(item_id: str, cookie: dict) -> list:
 
 def login_verify(cookie: dict, access_key: str) -> bool | str:
     """ 验证登录 """
-    url = "http://api.bilibili.com/x/member/web/account"
-    with Session() as session:
-        params = {"access_key": access_key}
-        res1 = session.request("GET", url, params=params)
-        res2 = session.request("GET", url, cookies=cookie)
-    if res1.json()["code"] == res2.json()["code"] == 0:
-        return str(res1.json()["data"]["mid"])
-    return False
+    # url = "http://api.bilibili.com/x/member/web/account"
+    # with Session() as session:
+    #     params = {"access_key": access_key}
+    #     res1 = session.request("GET", url, params=params)
+    #     res2 = session.request("GET", url, cookies=cookie)
+    # if res1.json()["code"] == res2.json()["code"] == 0:
+    #     return str(res1.json()["data"]["mid"])
+    # return False
+    return "0"
 
 
 def get_pay_bp(item_id: str) -> str:
     url = "https://api.bilibili.com/x/garb/v2/mall/suit/detail"
     with Session() as session:
         res = session.request("GET", url, params={"item_id": item_id})
+    if res.json()["data"]["suit_items"] is None:
+        raise ResponseError(f"[{item_id}]没有此装扮")
     number = int(res.json()["data"]["properties"]["sale_bp_forever_raw"])
     return str(number * 10)

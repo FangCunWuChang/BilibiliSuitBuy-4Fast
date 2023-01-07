@@ -1,5 +1,3 @@
-from application.apps.app import App
-
 if __name__ == '__main__':
-    app = App()
-    app.mainloop()
+    from application.apps.app import app as main_app
+    main_app.mainloop()

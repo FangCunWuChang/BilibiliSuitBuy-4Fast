@@ -50,14 +50,6 @@ def writer(path: str, data: list | dict | bytes) -> str:
     return os.path.abspath(path)
 
 
-def buildSign(form_data: str, app_sec=SIGN_ANDROID) -> str:
-    """ 生成表单的sign """
-    form_data_sec = f"{form_data}{app_sec}"
-    md5_hashlib = hashlib.md5()
-    md5_hashlib.update(form_data_sec.encode())
-    return str(md5_hashlib.hexdigest())
-
-
 def build_x_bili_aurora_eid(mid: str) -> str:
     """ 生成 x-bili-aurora-eid """
     length = mid.__len__()
@@ -138,3 +130,11 @@ def urlQuerySplit(url: str) -> dict:
         i = li.split("=")
         query_dict[i[0]] = "" if len(i) == 1 else unquote(i[1])
     return query_dict
+
+
+def read_device_content():
+    """ 打开device.json """
+    default_device_file = "./device.json"
+    if os.path.exists(default_device_file):
+        return reader(default_device_file)
+    return dict()

@@ -1,113 +1,66 @@
-from application.errors import GuiValueError
-
-from application.config import app_settings
-
-from application.module.controls import (
-    TkinterLabel, TkinterButton, TkinterEntry
-)
-
-from application.utils import (
-    reader
-)
-
-from application.net.utils import (
-    get_versions, MobiAPP_ANDROID
-)
-
-from functools import partial
 import tkinter
-import os
 
-
-from application.module.command.serach import (
-    item_id_search, coupon_search
+from application.utils import read_device_content
+from application.errors import GuiItemNotExist
+from application.net.utils import (
+    get_versions,
+    MobiAPP_ANDROID
+)
+from application.items import (
+    ButtonConfig,
+    LabelConfig,
+    AppConfig,
+    EntryConfig
+)
+from application.items import (
+    TkinterEntry,
+    TkinterLabel
+)
+from application.config import (
+    config_base_app,
+    config_controls_app_Help_Button,
+    config_controls_app_BaseSetting_Button,
+    config_controls_app_Start_Button,
+    config_controls_app_CouponSearch_Button,
+    config_controls_app_DeviceSetting_Button,
+    config_controls_app_ImportLogin_Button,
+    config_controls_app_ImportMessage_Button,
+    config_controls_app_ItemIdSearch_Button
+)
+from application.config import (
+    config_controls_app_Coupon_entry,
+    config_controls_app_BuyNum_entry,
+    config_controls_app_DelayT_entry,
+    config_controls_app_StartT_entry,
+    config_controls_app_ItemId_entry
+)
+from application.config import (
+    config_controls_app_Coupon_label,
+    config_controls_app_BuyNum_label,
+    config_controls_app_DelayT_label,
+    config_controls_app_ItemId_label,
+    config_controls_app_StartT_label
+)
+from application.module.command.app import (
+    AppCommandHelp,
+    AppCommandBaseSetting,
+    AppCommandStart,
+    AppCommandCouponSearch,
+    AppCommandDeviceSetting,
+    AppCommandImportLogin,
+    AppCommandImportMessage,
+    AppCommandItemIdSearch
 )
 
-from application.module.command.info import (
-    device_info, from_data_info
-)
 
-from application.module.command.open import (
-    open_login, open_message
-)
-
-from application.module.command.start import (
-    start, app_help
-)
-
-main_func_list = [
-    (item_id_search, "item_id_search"),
-    (coupon_search, "coupon_search"),
-    (device_info, "device_info"),
-    (open_login, "open_login"),
-    (from_data_info, "from_data_info"),
-    (open_message, "open_message"),
-    (start, "start"),
-    (app_help, "help")
-]
-
-
-class AppDeviceInfo(object):
-    def __init__(self):
-        """ 设备信息 """
-        super(AppDeviceInfo, self).__init__()
-        self.Device_Buvid = None
-        self.Device_AndroidModel = None
-        self.Device_AndroidBuild = None
-
-
-class AppLoginInfo(object):
-    def __init__(self):
-        """ 报文里的一些默认值 """
-        super(AppLoginInfo, self).__init__()
-        self.Value_cookie = None
-        self.Value_accessKey = None
-
-
-class AppFromDataInfo(object):
-    def __init__(self):
-        """ 报文里的一些默认值 """
-        super(AppFromDataInfo, self).__init__()
-        self.Data_addMonth: str = "-1"
-        self.Data_fSource: str = "shop"
-        self.Data_shopFrom: str = "feed.card"
-
-        code, name = get_versions(MobiAPP_ANDROID)
-
-        self.Data_versionName: str = str(name)
-        self.Data_versionCode: str = str(code)
-
-
-class App(tkinter.Tk, AppDeviceInfo, AppFromDataInfo, AppLoginInfo):
-    def __init__(self):
+class App(tkinter.Tk):
+    def __init__(self, config: AppConfig):
         super(App, self).__init__()
 
-        self.title("理塘最強伝説と絶兇の猛虎!純真丁一郎です")
-        self.configure(background="#f0f0f0")
-        self.resizable(False, False)
-        self.geometry("470x210")
-
-        AppFromDataInfo.__init__(self)
-        AppDeviceInfo.__init__(self)
-        AppLoginInfo.__init__(self)
-
-        # 生成标签
-        for label_config in app_settings["label"]:
-            TkinterLabel(self, label_config)
-
-        # 生成输入框
-        for key, entry_config in app_settings["entry"].items():
-            self[key + "_entry"] = TkinterEntry(self, entry_config)
-
-        # 生成按钮
-        for func, name in main_func_list:
-            TkinterButton(self, app_settings["button"][name], partial(func, self))
-
-        if os.path.exists("./app_device.json"):
-            device_config = reader("./app_device.json")
-            self.Device_Buvid = device_config["buvid"]
-            self.Device_AndroidModel = device_config["android_model"]
-            self.Device_AndroidBuild = device_config["android_build"]
+        self.title(config.title)
+        self.configure(background=config.bg)
+        self.resizable(*config.resizable)
+        self.geometry(config.geometry)
 
     def __setitem__(self, key: str, value) -> any:
         """ 设置 """
@@ -117,5 +70,56 @@ class App(tkinter.Tk, AppDeviceInfo, AppFromDataInfo, AppLoginInfo):
         """ 取得 """
         value = getattr(self, str(item), None)
         if value is None:
-            raise GuiValueError(f"不存在{item}")
+            raise GuiItemNotExist(f"找不到{item}")
         return value
+
+    def loadButton(self, command: any, config: ButtonConfig, **kwargs):
+        command(self, config=config, **kwargs)
+
+    def loadEntry(self, item_name: str, config: EntryConfig):
+        self[item_name] = TkinterEntry(self, config=config)
+
+    def loadLabel(self, config: LabelConfig):
+        TkinterLabel(self, config=config)
+
+
+device_content = read_device_content()
+code, name = get_versions(MobiAPP_ANDROID)
+
+app = App(config_base_app)
+
+app["Device_BilibiliBuvid"] = device_content.get("BilibiliBuvid", "")
+app["Device_AndroidModel"] = device_content.get("AndroidModel", "")
+app["Device_AndroidBuild"] = device_content.get("AndroidBuild", "")
+app["Device_VersionName"] = device_content.get("VersionName", str(name))
+app["Device_VersionCode"] = device_content.get("VersionCode", str(code))
+
+app["Base_addMonth"] = "-1"
+app["Base_fSource"] = "shop"
+app["Base_shopFrom"] = "feed.card"
+
+app["Login_accessKey"] = None
+app["Login_cookie"] = None
+
+
+app.loadLabel(config_controls_app_Coupon_label)
+app.loadLabel(config_controls_app_BuyNum_label)
+app.loadLabel(config_controls_app_DelayT_label)
+app.loadLabel(config_controls_app_ItemId_label)
+app.loadLabel(config_controls_app_StartT_label)
+
+app.loadEntry("Coupon_entry", config_controls_app_Coupon_entry)
+app.loadEntry("BuyNum_entry", config_controls_app_BuyNum_entry)
+app.loadEntry("DelayT_entry", config_controls_app_DelayT_entry)
+app.loadEntry("StartT_entry", config_controls_app_StartT_entry)
+app.loadEntry("ItemId_entry", config_controls_app_ItemId_entry)
+
+app.loadButton(AppCommandHelp, config_controls_app_Help_Button)
+app.loadButton(AppCommandStart, config_controls_app_Start_Button)
+app.loadButton(AppCommandImportLogin, config_controls_app_ImportLogin_Button)
+app.loadButton(AppCommandImportMessage, config_controls_app_ImportMessage_Button)
+app.loadButton(AppCommandBaseSetting, config_controls_app_BaseSetting_Button, main_app_root=app)
+app.loadButton(AppCommandCouponSearch, config_controls_app_CouponSearch_Button, main_app_root=app)
+app.loadButton(AppCommandDeviceSetting, config_controls_app_DeviceSetting_Button, main_app_root=app)
+app.loadButton(AppCommandItemIdSearch, config_controls_app_ItemIdSearch_Button, main_app_root=app)
+

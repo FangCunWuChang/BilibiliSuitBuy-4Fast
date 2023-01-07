@@ -9,7 +9,7 @@
     "native_api_from": "h5",
     "accept": "application/json, text/plain, */*",
     "env": "prod",
-    "app-key": "android",
+    "APP-KEY": "android",
     "x-bili-aurora-zone": "",
     "content-type": "application/x-www-form-urlencoded; charset=utf-8",
     "accept-encoding": "gzip",
