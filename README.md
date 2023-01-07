@@ -35,26 +35,13 @@ git clone https://github.com/lllk140/BilibiliSuitBuy.git
 cd BilibiliSuitBuy
 ```
 
-**可选, 执行完这部不需要执行3,4,5步**
+**3.运行bat脚本**
 ```shell
-双击运行根目录下的install.bat
+install-http.bat
+install-app.bat
 
-执行完毕可直接双击main.exe来运行
-```
-
-**3.安装依赖**
-```shell
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-**4.打包脚本本体**(<small>或自行执行打包指令</small>)
-```shell
-双击运行根目录下的install-http.bat
-```
-
-**5.启动**
-```shell
-python main.py
+# 当然也可以双击运行
+# 执行完后直接双击main.exe运行
 ```
 
 ---
