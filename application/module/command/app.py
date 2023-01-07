@@ -137,9 +137,9 @@ class AppCommandCouponSearch(ButtonCommand):
         if mid is False:
             raise LoginWarning("登录标识验证失败")
 
-        item_id = self.root["ItemId_entry"].value("未填写装扮标识")
+        item_id = self.root["ItemId_entry"].value()
         if not item_id:
-            return showinfo("提示", "未填写关键字")
+            return showinfo("提示", "未填写装扮标识")
 
         coupon_list = search_coupon(item_id, parse_cookies(cookie))
         if not coupon_list:
