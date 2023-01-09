@@ -318,7 +318,7 @@ class AppCommandStart(ButtonCommand):
 
     @staticmethod
     def build_biz_extra(base: dict, coupon_token_entry: str):
-        biz = '{"add_month":%s,"coupon_token":"%s","m_source":"%s","f_source":"%s","from":"%s","from_id":""}'
+        biz = '{"add_month":%s,"coupon_token":"%s","m_source":"%s","f_source":"%s","from":"%s","from_id":"%s"}'
         biz_extra = biz % (base["addMonth"], coupon_token_entry, "", base["fSource"], base["shopFrom"], "")
         return biz_extra
 
@@ -334,7 +334,7 @@ class AppCommandStart(ButtonCommand):
         return __statistics
 
     @application_thread
-    @application_error
+    # @application_error
     def func(self):
         print(self.__class__)
 
