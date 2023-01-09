@@ -334,7 +334,7 @@ class AppCommandStart(ButtonCommand):
         return __statistics
 
     @application_thread
-    # @application_error
+    @application_error
     def func(self):
         print(self.__class__)
 
