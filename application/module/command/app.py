@@ -367,7 +367,7 @@ class AppCommandStart(ButtonCommand):
         suit_sale_time = get_sale_time(item_id_entry)
         if not start_time:
             self.root["StartT_entry"].writer(str(suit_sale_time))
-        start_time = self.root["start_time_entry"].number(False)
+        start_time = self.root["StartT_entry"].number(False)
 
         if time.time() >= start_time:
             raise GuiStartWarning("启动时间小于当前时间")
