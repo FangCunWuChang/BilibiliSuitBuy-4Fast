@@ -33,20 +33,6 @@ class GuiLoginValueNotExist(Warning):
         self.title = "[警告]登陆信息未导入/获取"
 
 
-class BuyNumberFormatError(Warning):
-    """ [警告]购买数量格式错误 """
-    def __init__(self, *args):
-        super(BuyNumberFormatError, self).__init__(*args)
-        self.title = "[警告]购买数量格式错误"
-
-
-class DelayTimeFormatError(Warning):
-    """ [警告]延时时间格式错误 """
-    def __init__(self, *args):
-        super(DelayTimeFormatError, self).__init__(*args)
-        self.title = "[警告]延时时间格式错误"
-
-
 class ItemIdFormatError(Warning):
     """ [警告]装扮标识格式错误 """
     def __init__(self, *args):
