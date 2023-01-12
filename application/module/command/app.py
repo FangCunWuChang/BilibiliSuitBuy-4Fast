@@ -32,8 +32,6 @@ from application.utils import (
     get_sdk_int
 )
 from application.errors import (
-    BuyNumberFormatError,
-    DelayTimeFormatError,
     ItemIdFormatError,
     GuiStartWarning,
     LoginWarning
