@@ -352,7 +352,7 @@ class AppCommandStart(ButtonCommand):
             self.root["BuyNum_entry"].writer("1")
 
         buy_number = self.root["BuyNum_entry"].number(False)
-        if buy_number < 0:
+        if buy_number < 0 or buy_number > 10:
             buy_number = 1
 
         delay_time = self.root["DelayT_entry"].number(False)
