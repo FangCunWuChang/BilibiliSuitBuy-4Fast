@@ -97,7 +97,7 @@ class CouponSearchWindow(TopWindow):
             self["list_box"].insert(tkinter.END, text)
         self["list_box"].bind("<Double-Button-1>", self.func)
 
-    def func(self):
+    def func(self, _):
         number = self["list_box"].curselection()
         item_id = self.coupon_token_dict[number[0]]
         self.main_app_root["Coupon_entry"].writer(item_id)

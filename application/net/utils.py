@@ -39,7 +39,7 @@ def search_coupon(item_id: str, cookie: dict) -> list:
     """ 优惠劵查找 """
     url = "https://api.bilibili.com/x/garb/coupon/usable?item_id=11"
     with Session() as session:
-        kk = {"params": item_id, "cookies": cookie}
+        kk = {"params": {"item_id": item_id}, "cookies": cookie}
         res = session.request("GET", url, **kk)
     if res.json()["code"] == -101:
         raise LoginWarning("账号未登录")

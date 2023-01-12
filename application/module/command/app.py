@@ -347,19 +347,20 @@ class AppCommandStart(ButtonCommand):
         # ---------------------------------------------------
         if not self.root["DelayT_entry"].value():
             self.root["DelayT_entry"].writer("0")
+
         if not self.root["BuyNum_entry"].value():
             self.root["BuyNum_entry"].writer("1")
 
-        delay_time_entry = self.root["DelayT_entry"].value()
-        buy_number_entry = self.root["BuyNum_entry"].value()
+        buy_number = self.root["BuyNum_entry"].number(False)
+        if buy_number < 0:
+            buy_number = 1
 
-        item_id_entry = self.root["ItemId_entry"].value()
+        delay_time = self.root["DelayT_entry"].number(False)
+        if delay_time < 0:
+            delay_time = 0
 
         # ---------------------------------------------------
-        if not delay_time_entry.isdigit():
-            raise DelayTimeFormatError("延时时间格式错误")
-        if not buy_number_entry.isdigit():
-            raise BuyNumberFormatError("购买数量格式错误")
+        item_id_entry = self.root["ItemId_entry"].value()
         if not item_id_entry.isdigit():
             raise ItemIdFormatError("装扮标识格式错误")
 
@@ -386,8 +387,8 @@ class AppCommandStart(ButtonCommand):
             "csrf": __cookie["bili_jct"],
             "disable_rcmd": "0",
             "goods_id": "195",
-            "goods_num": "1",
-            "pay_bp": self.build_pay_bp(item_id_entry, buy_number_entry),
+            "goods_num": str(buy_number),
+            "pay_bp": self.build_pay_bp(item_id_entry, buy_number),
             "platform": "android",
             "statistics": self.build_statistics(device),
             "ts": start_time
@@ -413,7 +414,7 @@ class AppCommandStart(ButtonCommand):
         start_content = {
             "setting": {
                 "start_time": start_time,
-                "delay_time": int(delay_time_entry),
+                "delay_time": delay_time,
                 "item_id": item_id_entry
             },
             "form_data": form_data,
