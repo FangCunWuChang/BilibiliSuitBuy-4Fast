@@ -37,11 +37,10 @@ cd BilibiliSuitBuy
 
 **3.运行bat脚本**
 ```shell
-install-http.bat
-install-app.bat
+install.bat
 
-# 当然也可以双击运行
-# 执行完后直接双击main.exe运行
+# 当然也可以直接双击运行
+# 执行完后双击main.exe运行
 ```
 
 ---
