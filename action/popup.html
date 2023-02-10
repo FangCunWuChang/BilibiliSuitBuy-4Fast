@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/options-box.css">
+    <link rel="stylesheet" href="css/fan-card-items.css">
+    <link rel="stylesheet" href="css/fan-number-items.css">
+
+    <script src="js/utils.js"></script>
+    <script src="js/chrome.js"></script>
+    <script src="js/constValue.js"></script>
+</head>
+<body id="popup-body">
+    <!-- 装扮列表 [内容+信息+按钮] -->
+    <div class="box suit-list-item-box">
+        <div class="suit-list-text">
+            <a id="suit-amount">共???套</a>
+            <button id="suit-search-button">搜索</button>
+            <button id="suit-reverse-button">反向</button>
+        </div>
+        <div class="suit-list-box">
+            <ul id="suit-list"></ul>
+        </div>
+        <div class="suit-list-botton-box">
+            <div class="suit-list-botton">
+                <button id="update-suit-list">更新装扮列表</button>
+
+                <button id="apply-suit-list">应用</button>
+            </div>
+            <div class="suit-list-select">
+                <select id="suit-list-sort-option">
+                    <option value="">排序方式</option>
+                    <option value="date">获取时间</option>
+                    <option value="number">粉丝编号</option>
+                    <option value="own_num">库存数量</option>
+                    <option value="time_begin">开售时间</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分割线 -->
+    <div class="box line-box">
+        <span class="line"></span>
+    </div>
+
+    <div class="box choose-item-box" id="choose-item-box">
+        <img id="choose-item-box-bg">
+
+        <div id="content-box">
+            <!-- 库存 -->
+            <div class="content-item" id="fan-number-content">
+                <div class="fan-number-list-box">
+                    <div id="fan-number-item"></div>
+                </div>
+                <button id="give-fan-number-user">赠送</button>
+                <button id="show-fan-number">展示</button>
+                <button id="update-fan-number-list">更新</button>
+            </div>
+
+            <div class="content-item" id=""></div>
+        </div>
+
+        <div class="options-box">
+            <input type="range" min="0" max="100" step="1" id="opacity-range">
+            <select id="main-box-option">
+                <option value="fanNumberOption">库存</option>
+                <option value="2222">组件</option>
+            </select>
+            <a href="/options/options.html">设置</a>
+        </div>
+    </div>
+    <script src="js/content.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/fancard.js"></script>
+    <script src="js/popup.js"></script>
+</body>
+</html>

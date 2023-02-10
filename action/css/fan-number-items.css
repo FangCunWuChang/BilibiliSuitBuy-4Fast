@@ -1,0 +1,91 @@
+/* 编号内容容器 */
+
+.fan-number-list-box {
+    width: 405px;
+    height: 520px;
+    overflow: auto;
+}
+
+.fan-number-list-box::-webkit-scrollbar {
+    width: 5px;
+}
+
+.fan-number-list-box::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 编号容器 */
+
+#fan-number-item {
+    width: 400px;
+    overflow: hidden;
+}
+
+/* 编号盒子 */
+
+#fan-number-item a {
+    display: block;
+    font-family: "fansCard";
+    user-select: none;
+    font-weight: bold;
+    float: left;
+    font-size: 16px;
+    border-radius: 8px;
+    line-height: 30px;
+    margin: 5px 8px;
+    width: 84px;
+    height: 30px;
+    text-align: center;
+    transition: 300ms;
+}
+
+/* 按钮 */
+
+#fan-number-content button {
+    width: 80px;
+    height: 25px;
+    transition: 300ms;
+    border-style: none;
+    position: relative;
+    float: right;
+    background-color: rgba(240, 240, 240, 0.8);
+    color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    margin-left: 10px;
+    top: 6px;
+    right: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#fan-number-content button:hover {
+    background-color: rgba(240, 240, 240, 1);
+    color: rgba(0, 0, 0, 1);
+}
+
+/* 盒子状态 */
+
+/* 正在展示 */
+.fan-number-item-show {
+    background-color: steelblue;
+}
+
+/* 不可交易 */
+.fan-number-item-no {
+    background-color: wheat;
+    cursor: default;
+}
+
+/* 可交易 */
+.fan-number-item-yes {
+    background-color: blue;
+    cursor: pointer;
+}
+
+/* 选中 */
+.fan-number-item-choose {
+    background-color: brown;
+    cursor: pointer;
+}

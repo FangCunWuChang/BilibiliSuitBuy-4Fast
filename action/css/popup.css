@@ -1,0 +1,51 @@
+/* 字体 */
+
+@font-face {
+    font-family: "fansCard";
+    src:url("/action/font/fansCard.ttf");
+}
+
+body {
+    margin: 5px;
+    height: 590px;
+    width: 675px;
+}
+
+.box {
+    position: relative;
+    float: left;
+}
+
+.line-box {
+    width: 14px;
+    height: 100%;
+}
+
+.line-box .line {
+    position: relative;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 3px;
+    height: 100%;
+    left: 6px;
+    border-radius: 5px;
+}
+
+.choose-item-box {
+    width: 405px;
+    height: 100%;
+}
+
+#choose-item-box-bg {
+    position: absolute;
+    z-index: -1;
+    height: calc(100% - 30px);
+    width: 405px;
+    background-size: cover;
+}
+
+#content-box {
+    width: 405px;
+    height: calc(100% - 30px);
+    border-bottom: solid rgba(255, 255, 255, 0.8) 3px;
+}
