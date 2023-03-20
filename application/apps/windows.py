@@ -1,7 +1,5 @@
-import os
 import time
 import tkinter
-import subprocess
 
 from application.apps.utils import TopWindow
 from application.items import (
@@ -15,7 +13,6 @@ from application.config import (
     config_controls_ItemsSearch_listbox,
     config_controls_CouponSearch_listbox
 )
-from application.module.decoration import application_error
 from application.net.utils import get_sale_time
 from application.errors import GuiValueError
 

@@ -6,7 +6,6 @@ from application.errors import (
 
 from urllib.parse import urlsplit
 from urllib.parse import unquote
-import hashlib
 import base64
 import json
 import uuid

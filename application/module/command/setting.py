@@ -5,7 +5,6 @@ from application.module.decoration import (
     application_thread
 )
 from application.module.utils import ButtonCommand
-from application.config import help_content
 from application.message import showinfo
 from application.utils import writer
 

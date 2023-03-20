@@ -1,12 +1,6 @@
-import re
-import os
-import time
 import uuid
-import glob
 
 from urllib.parse import urlencode
-from urllib.parse import urlsplit
-from urllib.parse import unquote
 
 from application.module.utils import (
     ButtonCommand,
@@ -25,7 +19,6 @@ from application.message import (
     showinfo
 )
 from application.utils import (
-    ReaderMode_Content,
     reader, writer,
     parse_cookies,
     build_x_bili_aurora_eid,
@@ -34,7 +27,6 @@ from application.utils import (
 )
 from application.errors import (
     ItemIdFormatError,
-    StartTimeFormatError,
     DelayTimeFormatError,
     LoginWarning
 )
@@ -359,6 +351,7 @@ class AppCommandStart(ButtonCommand):
 
         args = ("保存启动设置", [("json", "*.json")], ".json")
         file_path = asksavefilename(*args)
-        start_file = writer(file_path, start_content)
+        if not file_path.isspace():
+            start_file = writer(file_path, start_content)
 
-        showinfo("提示", "启动配置已保存于: " + start_file)
+            showinfo("提示", "启动配置已保存于: " + start_file)
