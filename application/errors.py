@@ -39,6 +39,17 @@ class ItemIdFormatError(Warning):
         super(ItemIdFormatError, self).__init__(*args)
         self.title = "[警告]装扮标识格式错误"
 
+class StartTimeFormatError(Warning):
+    """ [警告]启动时间格式错误 """
+    def __init__(self, *args):
+        super(StartTimeFormatError, self).__init__(*args)
+        self.title = "[警告]启动时间格式错误"
+
+class DelayTimeFormatError(Warning):
+    """ [警告]延迟时间格式错误 """
+    def __init__(self, *args):
+        super(DelayTimeFormatError, self).__init__(*args)
+        self.title = "[警告]延迟时间格式错误"
 
 class ReaderError(Exception):
     """ [错误]无法读取 """
@@ -102,9 +113,3 @@ class FormatError(Exception):
         super(FormatError, self).__init__(*args)
         self.title = "[错误]格式不正确"
 
-
-class GuiStartWarning(Warning):
-    """ [警告]无法启动 """
-    def __init__(self, *args: object):
-        super(GuiStartWarning, self).__init__(*args)
-        self.title = "[警告]无法启动"

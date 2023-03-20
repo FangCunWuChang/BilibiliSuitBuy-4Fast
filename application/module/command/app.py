@@ -21,6 +21,7 @@ from application.module.decoration import (
 )
 from application.message import (
     askopenfilename,
+    asksavefilename,
     showinfo
 )
 from application.utils import (
@@ -33,18 +34,17 @@ from application.utils import (
 )
 from application.errors import (
     ItemIdFormatError,
-    GuiStartWarning,
+    StartTimeFormatError,
+    DelayTimeFormatError,
     LoginWarning
 )
 from application.net.utils import (
-    get_sale_time,
     get_pay_bp,
     get_versions,
     login_verify,
     search_coupon
 )
 from application.config import (
-    config_base_start,
     config_base_DeviceSetting,
     config_base_BaseSetting,
     config_base_ItemsSearch,
@@ -57,7 +57,6 @@ from application.config import (
     help_content
 )
 from application.apps.windows import (
-    StartWindow,
     DeviceSettingWindow,
     BaseSettingWindow,
     ItemsSearchWindow,
@@ -242,58 +241,6 @@ class AppCommandImportLogin(ButtonCommand):
         self.root["Login_cookie"] = login_content["cookie"]
         self.root["Login_accessKey"] = login_content["accessKey"]
 
-
-class AppCommandImportMessage(ButtonCommand):
-    """ 导入报文 """
-
-    def __init__(self, *args, **kwargs):
-        super(AppCommandImportMessage, self).__init__(*args, **kwargs)
-
-    @application_thread
-    @application_error
-    def func(self):
-        print(self.__class__)
-
-        showinfo("注意", "导入后请检查设备信息")
-
-        args = ("导入报文", [("text", "*.txt")], "message.txt")
-
-        content = reader(askopenfilename(*args), ReaderMode_Content)
-
-        message_content: list = content.split(b"\r\n")
-        request: list = message_content[0].split(b" ")
-        url_query: bytes = urlsplit(request[1]).query
-        p = [i.split(b"=") for i in url_query.split(b"&")]
-        p2 = [[ii.decode() for ii in i] for i in p]
-        params = {unquote(i[0]): unquote(i[1]) for i in p2}
-        headers_content = message_content[1:len(message_content) - 2]
-        h = [i.split(b": ") for i in headers_content]
-        h2h = [i if len(i) == 2 else [i[0], b""] for i in h]
-        h3 = [[ii.decode() for ii in i] for i in h2h]
-        headers = {unquote(i[0]).lower(): i[1] for i in h3}
-        user_agent = headers["user-agent"]
-
-        android_model_list = re.findall(r"model/.+? ", user_agent)
-        android_model = android_model_list[0][6:][:-1]
-        android_build_list = re.findall(r"osVer/.+? ", user_agent)
-        android_build = android_build_list[0][6:][:-1]
-        app_code_list = re.findall(r"build/.+? ", user_agent)
-        version_code = app_code_list[0][6:][:-1]
-        app_name_list = re.findall(r"disable_rcmd/0 .+? ", user_agent)
-        version_name = app_name_list[0].split(" ")[1]
-        cookies = parse_cookies(headers["cookie"])
-
-        self.root["Device_BilibiliBuvid"] = cookies["Buvid"]
-        self.root["Device_AndroidModel"] = android_model
-        self.root["Device_AndroidBuild"] = android_build
-        self.root["Device_VersionName"] = version_name
-        self.root["Device_VersionCode"] = version_code
-
-        self.root["Login_cookie"] = headers["cookie"]
-        self.root["Login_accessKey"] = params["access_key"]
-        self.root["ItemId_entry"].writer(params["item_id"])
-
-
 class AppCommandStart(ButtonCommand):
     """ 启动 """
     def __init__(self, *args, **kwargs):
@@ -353,25 +300,16 @@ class AppCommandStart(ButtonCommand):
         if buy_number < 0 or buy_number > 10:
             buy_number = 1
 
-        delay_time = self.root["DelayT_entry"].number(False)
-        if delay_time < 0:
-            delay_time = 0
-
         # ---------------------------------------------------
         item_id_entry = self.root["ItemId_entry"].value()
         if not item_id_entry.isdigit():
             raise ItemIdFormatError("装扮标识格式错误")
-
+        
         start_time = self.root["StartT_entry"].number(False)
-        suit_sale_time = get_sale_time(item_id_entry)
-        if not start_time:
-            self.root["StartT_entry"].writer(str(suit_sale_time))
-        start_time = self.root["StartT_entry"].number(False)
-
-        if time.time() >= start_time:
-            raise GuiStartWarning("启动时间小于当前时间")
-        if start_time < suit_sale_time:
-            raise GuiStartWarning("启动时间小于装扮开售时间")
+        
+        delay_time = self.root["DelayT_entry"].number(False)
+        if delay_time < 0 or delay_time >= 1000:
+            raise DelayTimeFormatError("延迟时间格式错误")
 
         __cookie = parse_cookies(login["cookie"])
 
@@ -419,12 +357,8 @@ class AppCommandStart(ButtonCommand):
             "headers": headers,
         }
 
-        http_dict = dict()
-        for li in glob.glob("./http/*.bat"):
-            name = os.path.splitext(os.path.split(li)[1])[0]
-            http_dict[str(name)] = li
-
-        file_path = f"./start/{str(uuid.uuid4())}.json"
+        args = ("保存启动设置", [("json", "*.json")], ".json")
+        file_path = asksavefilename(*args)
         start_file = writer(file_path, start_content)
 
-        StartWindow(config_base_start, start_file, http_dict)
+        showinfo("提示", "启动配置已保存于: " + start_file)

@@ -24,7 +24,6 @@ from application.config import (
     config_controls_app_CouponSearch_Button,
     config_controls_app_DeviceSetting_Button,
     config_controls_app_ImportLogin_Button,
-    config_controls_app_ImportMessage_Button,
     config_controls_app_ItemIdSearch_Button
 )
 from application.config import (
@@ -48,7 +47,6 @@ from application.module.command.app import (
     AppCommandCouponSearch,
     AppCommandDeviceSetting,
     AppCommandImportLogin,
-    AppCommandImportMessage,
     AppCommandItemIdSearch
 )
 
@@ -117,7 +115,6 @@ app.loadEntry("ItemId_entry", config_controls_app_ItemId_entry)
 app.loadButton(AppCommandHelp, config_controls_app_Help_Button)
 app.loadButton(AppCommandStart, config_controls_app_Start_Button)
 app.loadButton(AppCommandImportLogin, config_controls_app_ImportLogin_Button)
-app.loadButton(AppCommandImportMessage, config_controls_app_ImportMessage_Button)
 app.loadButton(AppCommandBaseSetting, config_controls_app_BaseSetting_Button, main_app_root=app)
 app.loadButton(AppCommandCouponSearch, config_controls_app_CouponSearch_Button, main_app_root=app)
 app.loadButton(AppCommandDeviceSetting, config_controls_app_DeviceSetting_Button, main_app_root=app)

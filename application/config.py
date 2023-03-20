@@ -14,13 +14,7 @@ font_2 = ("Microsoft YaHei", 18)
 
 
 # "主页面"基础样式
-config_base_app = AppConfig("理塘最強伝説と絶兇の猛虎!純真丁一郎です", "#f0f0f0", False, "470x210")
-
-
-# "启动窗口"基础样式
-config_base_start = AppConfig("启动选择", "#f0f0f0", False, "300x300")
-config_controls_Start_listbox = ListBoxConfig(font_0, w=280, h=280, x=10, y=10)
-
+config_base_app = AppConfig("开庭的时候记得带上你的B站装扮", "#f0f0f0", False, "470x210")
 
 # "设备信息"基础样式
 config_base_DeviceSetting = AppConfig("设备信息", "#f0f0f0", False, "500x170")
@@ -91,10 +85,9 @@ config_controls_app_StartT_entry = EntryConfig(None, font_1, w=150, h=30, x=120,
 
 config_controls_app_ItemIdSearch_Button = ButtonConfig("搜索", font_0, w=50, h=30, x=410, y=10)
 config_controls_app_CouponSearch_Button = ButtonConfig("搜索", font_0, w=50, h=30, x=410, y=50)
-config_controls_app_ImportLogin_Button = ButtonConfig("导入登录", font_0, w=105, h=30, x=10, y=130)
-config_controls_app_ImportMessage_Button = ButtonConfig("导入报文", font_0, w=105, h=30, x=125, y=130)
-config_controls_app_DeviceSetting_Button = ButtonConfig("设备信息", font_0, w=105, h=30, x=240, y=130)
-config_controls_app_BaseSetting_Button = ButtonConfig("基础信息", font_0, w=105, h=30, x=355, y=130)
+config_controls_app_ImportLogin_Button = ButtonConfig("导入登录", font_0, w=143, h=30, x=10, y=130)
+config_controls_app_DeviceSetting_Button = ButtonConfig("设备信息", font_0, w=143, h=30, x=163, y=130)
+config_controls_app_BaseSetting_Button = ButtonConfig("基础信息", font_0, w=143, h=30, x=316, y=130)
 config_controls_app_Start_Button = ButtonConfig("开始运行", font_0, w=390, h=30, x=10, y=170)
 config_controls_app_Help_Button = ButtonConfig("帮助", font_0, w=50, h=30, x=410, y=170)
 

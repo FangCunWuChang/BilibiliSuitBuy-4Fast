@@ -28,3 +28,13 @@ def askopenfilename(title, types, initialfile=None) -> str:
     if not file_ack:
         raise GuiFileAskWarning("...")
     return file_ack
+
+def asksavefilename(title, types, defaultextension=None) -> str:
+    """ 打开文件框，选择保存位置 """
+    kwargs = {"title": title, "filetypes": types}
+    if defaultextension and isinstance(defaultextension, str):
+        kwargs.update({"defaultextension": defaultextension})
+    file_ack = tkinter.filedialog.asksaveasfilename(**kwargs)
+    if not file_ack:
+        raise GuiFileAskWarning("...")
+    return file_ack

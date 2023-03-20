@@ -1,5 +1,4 @@
-1.启动时间不写会自动填，但填的只是装扮的开售时间
-2.登陆请前往https://github.com/lllk140/BilibiliLogin获取登录器
-3.此版本已经不支持老接口启动, 改为最新接口启动
-4.此版本启动时间问题改为不可"逆"
-5.此版本启动取消测试, "-1"无用
+1.启动时间单位为秒, 延迟时间单位为毫秒
+2.登陆请前往 https://github.com/lllk140/BilibiliLogin 获取登录器
+3.想要提前启动可以将装扮开售时间提前一秒, 延迟改为950ms左右
+4.这是無常用于C语言抢购后端的修改版本, 保存启动设置后使用 https://github.com/FangCunWuChang/bilisuit-fast 加载

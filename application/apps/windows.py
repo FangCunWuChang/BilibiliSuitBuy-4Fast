@@ -13,11 +13,11 @@ from application.message import (
 )
 from application.config import (
     config_controls_ItemsSearch_listbox,
-    config_controls_Start_listbox,
     config_controls_CouponSearch_listbox
 )
 from application.module.decoration import application_error
-
+from application.net.utils import get_sale_time
+from application.errors import GuiValueError
 
 class DeviceSettingWindow(TopWindow):
     """ 设备信息窗口 """
@@ -29,31 +29,6 @@ class BaseSettingWindow(TopWindow):
     """ 基础信息窗口 """
     def __init__(self, config: AppConfig):
         super(BaseSettingWindow, self).__init__(config)
-
-
-class StartWindow(TopWindow):
-    """ 启动窗口 """
-    def __init__(self, config: AppConfig, start_file: str, http: dict):
-        super(StartWindow, self).__init__(config)
-
-        self.http_dict, self.start_file = http, start_file
-
-        self.loadListBox("list_box", config_controls_Start_listbox)
-        for http_content in list(self.http_dict.keys()):
-            self["list_box"].insert(tkinter.END, http_content)
-
-        self.bind("<Double-Button-1>", self.func)
-
-    @application_error
-    def func(self, _):
-        number = self["list_box"].curselection()
-        name = self["list_box"].get(number)
-        kw = {"creationflags": subprocess.CREATE_NEW_CONSOLE}
-        http_start_file = os.path.abspath(self.http_dict[name])
-        start_text = f"{http_start_file} {self.start_file}"
-        subprocess.Popen(start_text, **kw)
-        showinfo("提示", "已尝试启动")
-
 
 class ItemsSearchWindow(TopWindow):
     """ 装扮搜索窗口 """
@@ -71,13 +46,21 @@ class ItemsSearchWindow(TopWindow):
         number = self["list_box"].curselection()
         item_id = self.item_id_dict[number[0]]
 
-        self.main_app_root["ItemId_entry"].writer(item_id)
-        data = self.main_app_root["ItemId_entry"].value()
-
-        if data == item_id:
-            showinfo("提示", "选择成功")
+        try:
+            sale_time = get_sale_time(item_id)
+        except GuiValueError as err:
+            showwarning("警告", "获取开售时间失败")
         else:
-            showwarning("警告", "选择失败")
+            self.main_app_root["ItemId_entry"].writer(item_id)
+            data = self.main_app_root["ItemId_entry"].value()
+
+            self.main_app_root["StartT_entry"].writer(str(sale_time))
+            self.main_app_root["DelayT_entry"].writer(str(0))
+
+            if data == item_id:
+                showinfo("提示", "选择成功")
+            else:
+                showwarning("警告", "选择失败")
 
 
 class CouponSearchWindow(TopWindow):
