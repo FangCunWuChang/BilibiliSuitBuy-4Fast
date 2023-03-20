@@ -88,7 +88,7 @@ config_controls_app_CouponSearch_Button = ButtonConfig("搜索", font_0, w=50, h
 config_controls_app_ImportLogin_Button = ButtonConfig("导入登录", font_0, w=143, h=30, x=10, y=130)
 config_controls_app_DeviceSetting_Button = ButtonConfig("设备信息", font_0, w=143, h=30, x=163, y=130)
 config_controls_app_BaseSetting_Button = ButtonConfig("基础信息", font_0, w=143, h=30, x=316, y=130)
-config_controls_app_Start_Button = ButtonConfig("开始运行", font_0, w=390, h=30, x=10, y=170)
+config_controls_app_Start_Button = ButtonConfig("完成配置", font_0, w=390, h=30, x=10, y=170)
 config_controls_app_Help_Button = ButtonConfig("帮助", font_0, w=50, h=30, x=410, y=170)
 
 
