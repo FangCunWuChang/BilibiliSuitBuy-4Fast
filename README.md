@@ -11,8 +11,8 @@
 - [x] 自定义购买数量
 - [x] 可用优惠劵搜索
 - [x] 装扮标识搜索
-- [x] [短信登陆](https://github.com/lllk140/BilibiliLogin)
-- [x] [账密登陆](https://github.com/lllk140/BilibiliLogin)
+- [x] [短信登陆](https://github.com/FangCunWuChang/BilibiliLogin-Lite)
+- [x] [账密登陆](https://github.com/FangCunWuChang/BilibiliLogin-Lite)
 
 ---
 
@@ -37,7 +37,7 @@ httpx包
 **启用时间单位是秒的时间戳, 时间戳转换进[这里](https://developer.aliyun.com/skills/timestamp.html)**
 <small>单位秒! 单位秒! 单位秒!</small>
 
-**导入登陆请搭配[BilibiliLogin](https://github.com/lllk140/BilibiliLogin)使用**
+**导入登陆请搭配[BilibiliLogin-Lite](https://github.com/FangCunWuChang/BilibiliLogin-Lite)使用**
 <small>这里不提供教程</small>
 
 ### 其他
