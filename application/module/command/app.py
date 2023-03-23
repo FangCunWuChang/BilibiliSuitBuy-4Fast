@@ -300,7 +300,7 @@ class AppCommandStart(ButtonCommand):
         start_time = self.root["StartT_entry"].number(False)
         
         delay_time = self.root["DelayT_entry"].number(False)
-        if delay_time < 0 or delay_time >= 1000:
+        if delay_time <= -1000 or delay_time >= 1000:
             raise DelayTimeFormatError("延迟时间格式错误")
 
         __cookie = parse_cookies(login["cookie"])
