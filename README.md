@@ -2,8 +2,6 @@
 
 **一个简单的抢装扮脚本的启动设置预处理器, 搭配C语言后端使用**
 
----
-
 ## 支持
 
 - [x] 图形用户界面
@@ -14,14 +12,10 @@
 - [x] [短信登陆](https://github.com/FangCunWuChang/BilibiliLogin-Lite)
 - [x] [账密登陆](https://github.com/FangCunWuChang/BilibiliLogin-Lite)
 
----
-
 ## 运行依赖
 
 Python3.10.7及更高版本  
 httpx包
-
----
 
 ## 如何设置
 
