@@ -31,6 +31,7 @@ from application.config import (
     config_controls_app_BuyNum_entry,
     config_controls_app_DelayT_entry,
     config_controls_app_StartT_entry,
+    config_controls_app_SaleT_entry,
     config_controls_app_ItemId_entry
 )
 from application.config import (
@@ -38,7 +39,8 @@ from application.config import (
     config_controls_app_BuyNum_label,
     config_controls_app_DelayT_label,
     config_controls_app_ItemId_label,
-    config_controls_app_StartT_label
+    config_controls_app_StartT_label,
+    config_controls_app_SaleT_label
 )
 from application.module.command.app import (
     AppCommandHelp,
@@ -105,11 +107,13 @@ app.loadLabel(config_controls_app_BuyNum_label)
 app.loadLabel(config_controls_app_DelayT_label)
 app.loadLabel(config_controls_app_ItemId_label)
 app.loadLabel(config_controls_app_StartT_label)
+app.loadLabel(config_controls_app_SaleT_label)
 
 app.loadEntry("Coupon_entry", config_controls_app_Coupon_entry)
 app.loadEntry("BuyNum_entry", config_controls_app_BuyNum_entry)
 app.loadEntry("DelayT_entry", config_controls_app_DelayT_entry)
 app.loadEntry("StartT_entry", config_controls_app_StartT_entry)
+app.loadEntry("SaleT_entry", config_controls_app_SaleT_entry)
 app.loadEntry("ItemId_entry", config_controls_app_ItemId_entry)
 
 app.loadButton(AppCommandHelp, config_controls_app_Help_Button)

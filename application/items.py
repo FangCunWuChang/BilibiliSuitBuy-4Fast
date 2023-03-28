@@ -30,15 +30,16 @@ class ButtonConfig(object):
 
 class EntryConfig(object):
     """ 输入框设置 """
-    def __init__(self, default: str | None, font: tuple[str, int], **kwargs):
+    def __init__(self, default: str | None, font: tuple[str, int], state: str, **kwargs):
         super(EntryConfig, self).__init__()
 
+        self.state = state
         self.place = Place(**kwargs).__dict__
         self.default, self.font = default, font
 
     @property
     def content(self):
-        return {"font": self.font}
+        return {"font": self.font, "state": self.state}
 
 
 class LabelConfig(object):

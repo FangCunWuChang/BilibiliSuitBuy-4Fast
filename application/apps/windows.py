@@ -54,6 +54,10 @@ class ItemsSearchWindow(TopWindow):
             self.main_app_root["StartT_entry"].writer(str(sale_time))
             self.main_app_root["DelayT_entry"].writer(str(0))
 
+            self.main_app_root["SaleT_entry"].config(state = 'normal')
+            self.main_app_root["SaleT_entry"].writer(str(sale_time))
+            self.main_app_root["SaleT_entry"].config(state = 'readonly')
+
             if data == item_id:
                 showinfo("提示", "选择成功")
             else:

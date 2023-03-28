@@ -14,7 +14,7 @@ font_2 = ("Microsoft YaHei", 18)
 
 
 # "主页面"基础样式
-config_base_app = AppConfig("开庭的时候记得带上你的B站装扮", "#f0f0f0", False, "470x210")
+config_base_app = AppConfig("开庭的时候记得带上你的B站装扮", "#f0f0f0", False, "470x250")
 
 # "设备信息"基础样式
 config_base_DeviceSetting = AppConfig("设备信息", "#f0f0f0", False, "500x170")
@@ -33,7 +33,7 @@ config_base_CouponSearch = AppConfig("优惠券选择", "#f0f0f0", False, "600x6
 
 # "装扮搜索"页面样式
 config_controls_ItemsSearch_listbox = ListBoxConfig(font_0, w=480, h=540, x=10, y=50)
-config_controls_ItemsSearch_entry = EntryConfig(None, font_0, w=420, h=30, x=10, y=10)
+config_controls_ItemsSearch_entry = EntryConfig(None, font_0, 'normal', w=420, h=30, x=10, y=10)
 config_controls_ItemsSearch_button = ButtonConfig("搜索", font_0, w=50, h=30, x=440, y=10)
 
 
@@ -42,9 +42,9 @@ config_controls_BaseSetting_addMonth_label = LabelConfig("购买时长", font_2,
 config_controls_BaseSetting_fSource_label = LabelConfig("购买位置", font_2, w=100, h=30, x=10, y=50)
 config_controls_BaseSetting_shopFrom_label = LabelConfig("购买来源", font_2, w=100, h=30, x=10, y=90)
 
-config_controls_BaseSetting_addMonth_entry = EntryConfig(None, font_0, w=150, h=30, x=120, y=10)
-config_controls_BaseSetting_fSource_entry = EntryConfig(None, font_0, w=150, h=30, x=120, y=50)
-config_controls_BaseSetting_shopFrom_entry = EntryConfig(None, font_0, w=150, h=30, x=120, y=90)
+config_controls_BaseSetting_addMonth_entry = EntryConfig(None, font_0, 'normal', w=150, h=30, x=120, y=10)
+config_controls_BaseSetting_fSource_entry = EntryConfig(None, font_0, 'normal', w=150, h=30, x=120, y=50)
+config_controls_BaseSetting_shopFrom_entry = EntryConfig(None, font_0, 'normal', w=150, h=30, x=120, y=90)
 
 config_controls_BaseSetting_apply_button = ButtonConfig("应用", font_0, w=260, h=30, x=10, y=130)
 
@@ -54,11 +54,11 @@ config_controls_CouponSearch_listbox = ListBoxConfig(font_0, w=580, h=580, x=10,
 
 
 # "设备信息设置"页面样式
-config_controls_DeviceSetting_buvid_entry = EntryConfig(None, font_1, w=300, h=30, x=120, y=10)
-config_controls_DeviceSetting_model_entry = EntryConfig(None, font_1, w=120, h=30, x=120, y=50)
-config_controls_DeviceSetting_osver_entry = EntryConfig(None, font_1, w=120, h=30, x=360, y=50)
-config_controls_DeviceSetting_name_entry = EntryConfig(None, font_1, w=120, h=30, x=120, y=90)
-config_controls_DeviceSetting_code_entry = EntryConfig(None, font_1, w=120, h=30, x=360, y=90)
+config_controls_DeviceSetting_buvid_entry = EntryConfig(None, font_1, 'normal', w=300, h=30, x=120, y=10)
+config_controls_DeviceSetting_model_entry = EntryConfig(None, font_1, 'normal', w=120, h=30, x=120, y=50)
+config_controls_DeviceSetting_osver_entry = EntryConfig(None, font_1, 'normal', w=120, h=30, x=360, y=50)
+config_controls_DeviceSetting_name_entry = EntryConfig(None, font_1, 'normal', w=120, h=30, x=120, y=90)
+config_controls_DeviceSetting_code_entry = EntryConfig(None, font_1, 'normal', w=120, h=30, x=360, y=90)
 
 config_controls_DeviceSetting_random_button = ButtonConfig("随机", font_0, w=50, h=30, x=430, y=10)
 config_controls_DeviceSetting_apply_button = ButtonConfig("应用/保存", font_0, w=460, h=30, x=20, y=130)
@@ -74,22 +74,24 @@ config_controls_DeviceSetting_code_label = LabelConfig("应用版本", font_2, w
 config_controls_app_BuyNum_label = LabelConfig("购买数量", font_2, w=100, h=30, x=10, y=10)
 config_controls_app_ItemId_label = LabelConfig("装扮标识", font_2, w=100, h=30, x=210, y=10)
 config_controls_app_Coupon_label = LabelConfig("优惠凭证", font_2, w=100, h=30, x=10, y=50)
-config_controls_app_StartT_label = LabelConfig("启动时间", font_2, w=100, h=30, x=10, y=90)
-config_controls_app_DelayT_label = LabelConfig("延迟时间", font_2, w=100, h=30, x=280, y=90)
+config_controls_app_StartT_label = LabelConfig("启动时间", font_2, w=100, h=30, x=10, y=130)
+config_controls_app_SaleT_label = LabelConfig("开售时间", font_2, w=100, h=30, x=10, y=90)
+config_controls_app_DelayT_label = LabelConfig("延迟时间", font_2, w=100, h=30, x=280, y=130)
 
-config_controls_app_BuyNum_entry = EntryConfig("1", font_1, w=80, h=30, x=120, y=10)
-config_controls_app_DelayT_entry = EntryConfig("0", font_1, w=70, h=30, x=390, y=90)
-config_controls_app_ItemId_entry = EntryConfig(None, font_1, w=80, h=30, x=320, y=10)
-config_controls_app_Coupon_entry = EntryConfig(None, font_1, w=280, h=30, x=120, y=50)
-config_controls_app_StartT_entry = EntryConfig(None, font_1, w=150, h=30, x=120, y=90)
+config_controls_app_BuyNum_entry = EntryConfig("1", font_1, 'normal', w=80, h=30, x=120, y=10)
+config_controls_app_DelayT_entry = EntryConfig("0", font_1, 'normal', w=70, h=30, x=390, y=130)
+config_controls_app_ItemId_entry = EntryConfig(None, font_1, 'normal', w=80, h=30, x=320, y=10)
+config_controls_app_Coupon_entry = EntryConfig(None, font_1, 'normal', w=280, h=30, x=120, y=50)
+config_controls_app_StartT_entry = EntryConfig(None, font_1, 'normal', w=150, h=30, x=120, y=130)
+config_controls_app_SaleT_entry = EntryConfig(None, font_1, 'readonly', w=340, h=30, x=120, y=90)
 
 config_controls_app_ItemIdSearch_Button = ButtonConfig("搜索", font_0, w=50, h=30, x=410, y=10)
 config_controls_app_CouponSearch_Button = ButtonConfig("搜索", font_0, w=50, h=30, x=410, y=50)
-config_controls_app_ImportLogin_Button = ButtonConfig("导入登录", font_0, w=143, h=30, x=10, y=130)
-config_controls_app_DeviceSetting_Button = ButtonConfig("设备信息", font_0, w=143, h=30, x=163, y=130)
-config_controls_app_BaseSetting_Button = ButtonConfig("基础信息", font_0, w=143, h=30, x=316, y=130)
-config_controls_app_Start_Button = ButtonConfig("完成配置", font_0, w=390, h=30, x=10, y=170)
-config_controls_app_Help_Button = ButtonConfig("帮助", font_0, w=50, h=30, x=410, y=170)
+config_controls_app_ImportLogin_Button = ButtonConfig("导入登录", font_0, w=143, h=30, x=10, y=170)
+config_controls_app_DeviceSetting_Button = ButtonConfig("设备信息", font_0, w=143, h=30, x=163, y=170)
+config_controls_app_BaseSetting_Button = ButtonConfig("基础信息", font_0, w=143, h=30, x=316, y=170)
+config_controls_app_Start_Button = ButtonConfig("完成配置", font_0, w=390, h=30, x=10, y=210)
+config_controls_app_Help_Button = ButtonConfig("帮助", font_0, w=50, h=30, x=410, y=210)
 
 
 # 所需内容[user_agent]

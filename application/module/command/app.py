@@ -16,7 +16,8 @@ from application.module.decoration import (
 from application.message import (
     askopenfilename,
     asksavefilename,
-    showinfo
+    showinfo,
+    showwarning
 )
 from application.utils import (
     reader, writer,
@@ -28,13 +29,15 @@ from application.utils import (
 from application.errors import (
     ItemIdFormatError,
     DelayTimeFormatError,
+    GuiValueError,
     LoginWarning
 )
 from application.net.utils import (
     get_pay_bp,
     get_versions,
     login_verify,
-    search_coupon
+    search_coupon,
+    get_sale_time
 )
 from application.config import (
     config_base_DeviceSetting,
@@ -298,10 +301,15 @@ class AppCommandStart(ButtonCommand):
             raise ItemIdFormatError("装扮标识格式错误")
         
         start_time = self.root["StartT_entry"].number(False)
+        sale_time = self.root["SaleT_entry"].number(False)
         
         delay_time = self.root["DelayT_entry"].number(False)
         if delay_time <= -1000 or delay_time >= 1000:
             raise DelayTimeFormatError("延迟时间格式错误")
+        
+        if delay_time < 0:
+            start_time -= 1
+            delay_time = 1000 + delay_time
 
         __cookie = parse_cookies(login["cookie"])
 
@@ -319,7 +327,7 @@ class AppCommandStart(ButtonCommand):
             "pay_bp": self.build_pay_bp(item_id_entry, buy_number),
             "platform": "android",
             "statistics": self.build_statistics(device),
-            "ts": start_time
+            "ts": sale_time
         }).toSign(SIGN_ANDROID))
 
         __referer = buy_setting["referer"].format(
@@ -334,7 +342,7 @@ class AppCommandStart(ButtonCommand):
         headers.update({"buvid": device["BilibiliBuvid"]})
         headers.update({"x-bili-aurora-eid": build_x_bili_aurora_eid(__cookie["DedeUserID"])})
         headers.update({"x-bili-mid": __cookie["DedeUserID"]})
-        headers.update({"x-bili-trace-id": build_x_bili_trace_id(start_time)})
+        headers.update({"x-bili-trace-id": build_x_bili_trace_id(sale_time)})
         headers.update({"referer": __referer})
         headers.update({"host": buy_setting["host"]})
         headers.update({"user-agent": self.build_user_agent(device)})
