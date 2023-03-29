@@ -16,8 +16,7 @@ from application.module.decoration import (
 from application.message import (
     askopenfilename,
     asksavefilename,
-    showinfo,
-    showwarning
+    showinfo
 )
 from application.utils import (
     reader, writer,
@@ -29,7 +28,7 @@ from application.utils import (
 from application.errors import (
     ItemIdFormatError,
     DelayTimeFormatError,
-    GuiValueError,
+    SaleTimeFormatError,
     LoginWarning
 )
 from application.net.utils import (
@@ -299,10 +298,23 @@ class AppCommandStart(ButtonCommand):
         item_id_entry = self.root["ItemId_entry"].value()
         if not item_id_entry.isdigit():
             raise ItemIdFormatError("装扮标识格式错误")
-        
-        start_time = self.root["StartT_entry"].number(False)
+
         sale_time = self.root["SaleT_entry"].number(False)
-        
+        if not self.root["SaleT_entry"].value().isdigit():
+            try:
+                sale_time = get_sale_time(item_id_entry)
+            except Exception as err:
+                raise SaleTimeFormatError("开售时间格式错误")
+            else:
+                self.root["SaleT_entry"].config(state = 'normal')
+                self.root["SaleT_entry"].writer(str(sale_time))
+                self.root["SaleT_entry"].config(state = 'readonly')
+
+        start_time = self.root["StartT_entry"].number(False)
+        if not self.root["StartT_entry"].value().isdigit():
+            start_time = sale_time
+            self.root["StartT_entry"].writer(str(start_time))
+
         delay_time = self.root["DelayT_entry"].number(False)
         if delay_time <= -1000 or delay_time >= 1000:
             raise DelayTimeFormatError("延迟时间格式错误")

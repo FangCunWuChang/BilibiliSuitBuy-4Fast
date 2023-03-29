@@ -14,7 +14,6 @@ from application.config import (
     config_controls_CouponSearch_listbox
 )
 from application.net.utils import get_sale_time
-from application.errors import GuiValueError
 
 class DeviceSettingWindow(TopWindow):
     """ 设备信息窗口 """
@@ -45,7 +44,7 @@ class ItemsSearchWindow(TopWindow):
 
         try:
             sale_time = get_sale_time(item_id)
-        except GuiValueError as err:
+        except Exception as err:
             showwarning("警告", "获取开售时间失败")
         else:
             self.main_app_root["ItemId_entry"].writer(item_id)

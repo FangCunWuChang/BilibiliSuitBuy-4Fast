@@ -51,6 +51,12 @@ class DelayTimeFormatError(Warning):
         super(DelayTimeFormatError, self).__init__(*args)
         self.title = "[警告]延迟时间格式错误"
 
+class SaleTimeFormatError(Warning):
+    """ [警告]开售时间格式错误 """
+    def __init__(self, *args):
+        super(SaleTimeFormatError, self).__init__(*args)
+        self.title = "[警告]开售时间格式错误"
+
 class ReaderError(Exception):
     """ [错误]无法读取 """
     def __init__(self, *args):
